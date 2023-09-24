@@ -10,7 +10,7 @@ class clsManejoDatos {
 
     // Constructor que establece la conexión con la base de datos
     public function __construct() {
-        $this->conexion = new mysqli("127.0.0.1", "wwparc", "534R541%l", "wwparc_appgesingreso");
+        $this->conexion = new mysqli("vps-1277060.parchefest.co", "wwparc", "534R541%l", "wwparc_appgesingreso");
 
         if ($this->conexion->connect_error) {
             die("Error en la conexión a la base de datos: " . $this->conexion->connect_error);
