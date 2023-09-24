@@ -12,6 +12,7 @@ class clsManejoDatos {
 
         if ($this->conexion->connect_error) {
             die("Error en la conexión a la base de datos: " . $this->conexion->connect_error);
+            echo "<script>console.log('Debug Objects: " . $this->conexion->connect_error . "' );</script>";
         }
     }
 
