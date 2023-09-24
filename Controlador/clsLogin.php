@@ -1,5 +1,5 @@
 <?php
-require_once './Controlador/clsManejoDatos.php';
+require_once 'clsManejoDatos.php';
 
 class clsLogin {
     private $manejoDatos;
