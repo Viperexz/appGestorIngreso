@@ -10,10 +10,6 @@ public function __construct() {
     $this->conexion = $this->manejoDatos->getConexion();
 
 }
-
-
-
-
 public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono) {
 $nombre = $this->conexion->real_escape_string($nombre);
 $apellidos = $this->conexion->real_escape_string($apellidos);
@@ -22,7 +18,7 @@ $fechaNacimiento = $this->conexion->real_escape_string($fechaNacimiento);
 $correo = $this->conexion->real_escape_string($correo);
 $telefono = $this->conexion->real_escape_string($telefono);
 
-$sql = "INSERT INTO participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo)
+$sql = "INSERT INTO Participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo)
 VALUES ('$cedula','$nombre + $apellidos',  '$fechaNacimiento',  '$telefono','$correo')";
 
 if ($this->manejoDatos->ejecutar($sql)) {
