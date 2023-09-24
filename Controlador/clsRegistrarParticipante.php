@@ -1,7 +1,7 @@
 <?php
 require_once 'clsManejoDatos.php'; // Asegúrate de incluir la clase clsManejoDatos
 
-class clsRegistrarParticipante {
+class clsRegistrarParticipa{
     private $conexion;
     private $manejoDatos;
 

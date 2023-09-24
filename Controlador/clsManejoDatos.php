@@ -8,13 +8,21 @@ class clsManejoDatos {
 
     // Constructor que establece la conexión con la base de datos
     public function __construct() {
-        $this->conexion = new mysqli("localhost", "wwparc", "534R541%l", "wwparc_appgesingreso");
 
-        if ($this->conexion->connect_error) {
-            die("Error en la conexión a la base de datos: " . $this->conexion->connect_error);
-            echo "<script>console.log('Debug Objects: " . $this->conexion->connect_error . "' );</script>";
-        }
-    }
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+try {
+    $this->conexion = new mysqli("localhost", "wwparc", "534R541%l", "wwparc_appgesingreso");
+} catch (mysqli_sql_exception $e) {
+    // Imprime el mensaje de error en la consola del navegador
+    $error_message = $e->getMessage();
+    echo "<script>console.error('$error_message');</script>";
+
+    // También puedes registrar el error en el registro de errores del servidor web
+    error_log("Error en la conexión MySQLi: $error_message");
+
+    }}
+
 
     // Método para ejecutar consultas SELECT
     public function consultar($sql) {

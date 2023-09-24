@@ -1,31 +1,18 @@
 <?php
-require_once 'Controlador/clsManejoDatos.php'; // Asegúrate de incluir la clase clsManejoDatos
+require_once 'Controlador/clsManejoDatos.php';
 
 class clsRegistrarParticipante {
 private $conexion;
 private $manejoDatos;
 
 public function __construct() {
-//$this->manejoDatos = new \Controlador\clsManejoDatos();
-//$this->conexion = $this->manejoDatos->getConexion();
-
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-try {
-    $this->conexion = new mysqli("localhost", "wwparc", "534R541%l", "wwparc_appgesingreso");
-} catch (mysqli_sql_exception $e) {
-    // Imprime el mensaje de error en la consola del navegador
-    $error_message = $e->getMessage();
-    echo "<script>console.error('$error_message');</script>";
-
-    // También puedes registrar el error en el registro de errores del servidor web
-    error_log("Error en la conexión MySQLi: $error_message");
-
-    // Puedes realizar otras acciones aquí, como redirigir a una página de error
-}
-
+    $this->manejoDatos = new \Controlador\clsManejoDatos();
+    $this->conexion = $this->manejoDatos->getConexion();
 
 }
+
+
+
 
 public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono) {
 $nombre = $this->conexion->real_escape_string($nombre);
