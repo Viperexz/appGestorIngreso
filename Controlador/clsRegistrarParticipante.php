@@ -18,7 +18,7 @@ class clsRegistrarParticipa{
         $correo = $this->conexion->real_escape_string($correo);
         $telefono = $this->conexion->real_escape_string($telefono);
 
-        $sql = "INSERT INTO participantes (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo) 
+        $sql = "INSERT INTO participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo) 
                 VALUES ('$cedula','$nombre + $apellidos',  '$fechaNacimiento',  '$telefono','$correo')";
 
         if ($this->manejoDatos->ejecutar($sql)) {
