@@ -1,5 +1,5 @@
 <?php
-require_once 'ruta/a/clsManejoDatos.php';
+require_once './Controlador/clsManejoDatos.php';
 
 class clsLogin {
     private $manejoDatos;
