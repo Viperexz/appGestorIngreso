@@ -3,11 +3,18 @@ require_once 'Controlador/clsManejoDatos.php'; // Asegúrate de incluir la clase
 
 class clsRegistrarParticipante {
 private $conexion;
-private $manejoDatos;
+//private $manejoDatos;
 
 public function __construct() {
-$this->manejoDatos = new \Controlador\clsManejoDatos();
-$this->conexion = $this->manejoDatos->getConexion();
+//$this->manejoDatos = new \Controlador\clsManejoDatos();
+//$this->conexion = $this->manejoDatos->getConexion();
+    $this->conexion = new mysqli("localhost", "wwparc", "534R541%l", "wwparc_appgesingreso");
+
+    if ($this->conexion->connect_error) {
+        die("Error en la conexión a la base de datos: " . $this->conexion->connect_error);
+        echo "<script>console.log('Debug Objects: " . $this->conexion->connect_error . "' );</script>";
+    }
+
 }
 
 public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono) {
