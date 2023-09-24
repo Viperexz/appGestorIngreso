@@ -1,3 +1,28 @@
+<?php
+require_once './Controlador/clsRegistrarParticipante.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nombre = $_POST['Nombre'];
+    $apellidos = $_POST['Apellidos'];
+    $cedula = $_POST['Cedula'];
+    $fechaNacimiento = $_POST['FN'];
+    $correo = $_POST['Correo'];
+    $telefono = $_POST['Telefono'];
+
+    // Validar que todos los campos estén llenos
+    if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimiento) || empty($correo) || empty($telefono)) {
+        echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
+    } else {
+        // Crear una instancia de la clase clsRegistrarParticipante
+        $registrador = new clsRegistrarParticipante();
+
+        // Llamar al método registrar para insertar en la base de datos
+        $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono);
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,25 +45,22 @@
     <form id="registro-form" method="POST" action="./Controlador/clsRegistrarParticipante.php">
         <div class="form-group">
             <label for="Nombre">Nombres</label>
-            <input type="text" class="form-control" placeholder="Nombres" id="Nombre" name="Nombre">
-            <div class="alert alert-danger mt-2" style="display: none;" id="nombreError">Este campo es obligatorio.</div>
+            <input type="text" class="form-control" placeholder="Nombres" id="Nombre" name="Nombre" required>
         </div>
         <div class="form-group">
             <label for="Apellidos">Apellidos</label>
-            <input type="text" class="form-control" placeholder="Apellidos" id="Apellidos" name="Apellidos">
-            <div class="alert alert-danger mt-2" style="display: none;" id="apellidosError">Este campo es obligatorio.</div>
+            <input type="text" class="form-control" placeholder="Apellidos" id="Apellidos" name="Apellidos" required>
         </div>
         <div class="form-group">
             <label for="Cedula">Cedula</label>
-            <input type="text" class="form-control" placeholder="Cedula" id="Cedula" name="Cedula">
-            <div class="alert alert-danger mt-2" style="display: none;" id="cedulaError">Este campo es obligatorio.</div>
+            <input type="text" class="form-control" placeholder="Cedula" id="Cedula" name="Cedula" required>
         </div>
         <div class="form-group">
             <label>Fecha de nacimiento</label>
             <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control" placeholder="Fecha nacimiento" id="FN" name="FN">
+                <input type='text' class="form-control" placeholder="Fecha nacimiento" id="FN" name="FN" required>
                 <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
+                    <span class="glyphicon glyphicon-calendar"></span>
                 </span>
             </div>
             <script type="text/javascript">
@@ -46,99 +68,18 @@
                     $('#datetimepicker1').datetimepicker();
                 });
             </script>
-            <div class="alert alert-danger mt-2" style="display: none;" id="fechaError">Este campo es obligatorio.</div>
         </div>
         <div class="form-group">
             <label for="Correo">Correo</label>
-            <input type="text" class="form-control" placeholder="Correo" id="Correo" name="Correo">
-            <div class="alert alert-danger mt-2" style="display: none;" id="correoError">Este campo es obligatorio.</div>
+            <input type="email" class="form-control" placeholder="Correo" id="Correo" name="Correo" required>
         </div>
         <div class="form-group">
             <label for="Telefono">Telefono</label>
-            <input type="text" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono">
-            <div class="alert alert-danger mt-2" style="display: none;" id="telefonoError">Este campo es obligatorio.</div>
+            <input type="tel" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono" required>
         </div>
         <div class="clearfix"></div>
         <button type="submit" class="btn btn-primary btn-responsive" id="search">Registrar</button>
     </form>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $("#search").click(function() {
-            // Obtén los valores de los campos
-            var nombre = $("#Nombre").val();
-            var apellidos = $("#Apellidos").val();
-            var cedula = $("#Cedula").val();
-            var correo = $("#Correo").val();
-            var telefono = $("#Telefono").val();
-            var fechanacimiento = $("#FN").val();
-
-            // Verifica y muestra avisos para campos vacíos
-            if (nombre === "") {
-                $("#nombreError").show();
-            } else {
-                $("#nombreError").hide();
-            }
-
-            if (apellidos === "") {
-                $("#apellidosError").show();
-            } else {
-                $("#apellidosError").hide();
-            }
-
-            if (cedula === "") {
-                $("#cedulaError").show();
-            } else {
-                $("#cedulaError").hide();
-            }
-
-            if (correo === "") {
-                $("#correoError").show();
-            } else {
-                $("#correoError").hide();
-            }
-
-            if (telefono === "") {
-                $("#telefonoError").show();
-            } else {
-                $("#telefonoError").hide();
-            }
-
-            if (fechanacimiento === "") {
-                $("#fechaError").show();
-            } else {
-                $("#fechaError").hide();
-            }
-            // Verifica si todos los campos están llenos antes de enviar el formulario
-            if (nombre === "" || apellidos === "" || cedula === "" || correo === "" || telefono === "") {
-                alert("Todos los campos son obligatorios. Por favor, complete todos los campos.");
-            }
-            else
-            {
-
-            }
-        });
-    });
-</script>
-
-
-<script>
-    // Función para obtener los parámetros de la URL
-    function getUrlParameter(name) {
-        name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
-    // Verifica si hay un mensaje de éxito en la URL y muestra una notificación
-    var mensaje = getUrlParameter('mensaje');
-    if (mensaje === 'exito') {
-        alert('Registro exitoso. ¡Gracias por registrarte!');
-    } else if (mensaje === 'error') {
-        alert('Error en el registro. Por favor, inténtalo de nuevo.');
-    }
-</script>
 </body>
 </html>
