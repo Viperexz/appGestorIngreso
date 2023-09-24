@@ -15,9 +15,12 @@ $dir = 'qrcodes/';
 // Nombre del archivo QR
 $archivoQR = $dir . 'qr_parametros.png';
 
-// Crear el código QR
-QRcode::png($datos, $archivoQR);
-
+try {
+    QRcode::png($datos, $archivoQR);
+    echo '<img src="' . $archivoQR . '" alt="Código QR con parámetros">';
+} catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}
 // Mostrar la imagen del código QR en la página
 echo '<img src="' . $archivoQR . '" alt="Código QR con parámetros">';
 ?>
