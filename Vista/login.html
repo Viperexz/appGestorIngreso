@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../Recursos/css/login.css">
+    <style>
+        /* Estilos para los mensajes de advertencia */
+        .aviso {
+            color: red;
+            display: none;
+        }
+    </style>
+    <script>
+        function validarFormulario() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("pwd").value;
+
+            // Mensajes de advertencia
+            var avisoUsername = document.getElementById("aviso-username");
+            var avisoPassword = document.getElementById("aviso-password");
+
+            // Restablece los mensajes de advertencia a su estado inicial
+            avisoUsername.style.display = "none";
+            avisoPassword.style.display = "none";
+
+            if (username === "") {
+                avisoUsername.style.display = "block";
+                return false; // Evita que el formulario se envíe si username está vacío.
+            }
+
+            if (password === "") {
+                avisoPassword.style.display = "block";
+                return false; // Evita que el formulario se envíe si password está vacío.
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div class="container" id="log-in-form">
+    <div class="heading">
+        <h1>Bienvenido Administrador</h1>
+    </div>
+    <form action="../Controlador/clsLogin.php" method="POST" onsubmit="return validarFormulario();"> <!-- Agregado onsubmit para llamar a la función de validación -->
+        <div class="form-group">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
+            <div id="aviso-username" class="aviso">Este campo es obligatorio</div> <!-- Mensaje de advertencia para username -->
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="pwd" name="password" placeholder="Contraseña">
+            <div id="aviso-password" class="aviso">Este campo es obligatorio</div> <!-- Mensaje de advertencia para password -->
+        </div>
+        <div class="form-group form-group-btn">
+            <button type="submit" class="btn btn-success btn-lg">Log In</button>
+        </div>
+        <div class="clearfix"></div>
+    </form>
+</div>
+</body>
+
+</html>
