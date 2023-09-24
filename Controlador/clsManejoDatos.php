@@ -46,5 +46,8 @@ class clsManejoDatos {
     public function cerrarConexion() {
         $this->conexion->close();
     }
+    public function getConexion() {
+        return $this->conexion;
+    }
 }
 ?>
