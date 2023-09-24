@@ -22,10 +22,8 @@ class clsRegistrarParticipante {
                 VALUES ('$cedula','$nombre + $apellidos',  '$fechaNacimiento',  '$telefono','$correo')";
 
         if ($this->manejoDatos->ejecutar($sql)) {
-            header("Location: ..index.html?mensaje=exito");
             exit;
         } else {
-            header("Location: ..index.html?mensaje=error");
             exit;
         }
     }
