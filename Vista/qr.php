@@ -3,8 +3,8 @@
 include('../phpqrcode/qrlib.php');
 
 // Definir los dos parámetros que deseas codificar en el QR
-$parametro1 = "Valor1";
-$parametro2 = "Valor2";
+$parametro1 = "1003194727";
+$parametro2 = "16052023";
 
 // Combinar los dos parámetros en una cadena si es necesario
 $datos = $parametro1 . " | " . $parametro2;
