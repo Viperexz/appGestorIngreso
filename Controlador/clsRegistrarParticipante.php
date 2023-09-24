@@ -18,14 +18,14 @@ class clsRegistrarParticipante {
         $correo = $this->conexion->real_escape_string($correo);
         $telefono = $this->conexion->real_escape_string($telefono);
 
-        $sql = "INSERT INTO participantes (nombre, apellidos, cedula, fecha_nacimiento, correo, telefono) 
-                VALUES ('$nombre', '$apellidos', '$cedula', '$fechaNacimiento', '$correo', '$telefono')";
+        $sql = "INSERT INTO participantes (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo) 
+                VALUES ('$cedula','$nombre + $apellidos',  '$fechaNacimiento',  '$telefono','$correo')";
 
         if ($this->manejoDatos->ejecutar($sql)) {
-            header("Location: registro.html?mensaje=exito");
+            header("Location: ./index.html?mensaje=exito");
             exit;
         } else {
-            header("Location: registro.html?mensaje=error");
+            header("Location: ./index.html?mensaje=error");
             exit;
         }
     }

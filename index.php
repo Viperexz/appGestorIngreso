@@ -80,6 +80,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="clearfix"></div>
         <button type="submit" class="btn btn-primary btn-responsive" id="search">Registrar</button>
     </form>
+    <script>
+        // Función para obtener los parámetros de la URL
+        function getUrlParameter(name) {
+            name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Verifica si hay un mensaje de éxito en la URL y muestra una notificación
+        var mensaje = getUrlParameter('mensaje');
+        if (mensaje === 'exito') {
+            alert('Registro exitoso. ¡Gracias por registrarte!');
+        } else if (mensaje === 'error') {
+            alert('Error en el registro. Por favor, inténtalo de nuevo.');
+        }
+    </script>
+
+
 </div>
 </body>
 </html>
