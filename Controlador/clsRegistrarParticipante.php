@@ -22,8 +22,12 @@ class clsRegistrarParticipante {
                 VALUES ('$cedula','$nombre + $apellidos',  '$fechaNacimiento',  '$telefono','$correo')";
 
         if ($this->manejoDatos->ejecutar($sql)) {
+            // Registro exitoso, redirige a la página anterior con un mensaje de éxito
+            header("Location: registro.php?mensaje=exito");
             exit;
         } else {
+            // Error en el registro, redirige a la página anterior con un mensaje de error
+            header("Location: registro.php?mensaje=error");
             exit;
         }
     }
