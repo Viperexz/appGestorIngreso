@@ -1,3 +1,12 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
+    // Procesar los datos del código QR aquí
+    $qrData = $_POST['qrData'];
+    echo "Datos del código QR procesados: $qrData";
+    exit; // Detiene la ejecución después de procesar los datos
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +21,8 @@
     <!------ Include the above in your HEAD tag ---------->
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.3.1/dist/jsQR.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.1/instascan.min.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>Escaner </title>
@@ -45,62 +55,41 @@
                 <div class="row">
                     <!-- Primera columna -->
                     <div class="col-md-6">
+                        <h1>Escáner de Códigos QR</h1>
                         <video id="qr-video" width="100%" height="auto"></video>
-                        <button id="scan-button">Escanear QR</button>
                         <div id="qr-result"></div>
 
                         <script>
                             const videoElement = document.getElementById('qr-video');
-                            const scanButton = document.getElementById('scan-button');
                             const qrResult = document.getElementById('qr-result');
 
-                            scanButton.addEventListener('click', () => {
-                                // Accede a la cámara trasera especificando 'environment' como el facingMode
-                                navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                                    .then((stream) => {
-                                        videoElement.srcObject = stream;
-                                        videoElement.play();
+                            const scanner = new Instascan.Scanner({ video: videoElement });
 
-                                        const canvas = document.createElement('canvas');
-                                        canvas.width = videoElement.videoWidth;
-                                        canvas.height = videoElement.videoHeight;
-                                        const context = canvas.getContext('2d');
-                                        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-                                        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                            scanner.addListener('scan', function (content) {
+                                qrResult.textContent = 'Contenido del código QR: ' + content;
 
-                                        const code = jsQR(imageData.data, imageData.width, imageData.height);
-                                        if (code) {
-                                            qrResult.textContent = 'Contenido del código QR: ' + code.data;
-
-                                            // Envía el resultado al servidor PHP utilizando AJAX
-                                            $.ajax({
-                                                type: 'POST',
-                                                url: '', // Deja esto en blanco para enviar la solicitud al mismo archivo
-                                                data: { qrData: code.data },
-                                                success: function(response) {
-                                                    console.log('Respuesta del servidor:', response);
-                                                },
-                                                error: function(error) {
-                                                    console.error('Error al enviar datos al servidor:', error);
-                                                }
-                                            });
-                                        } else {
-                                            qrResult.textContent = 'No se encontró ningún código QR.';
-                                        }
-                                    })
-                                    .catch((error) => {
-                                        console.error('Error al acceder a la cámara: ', error);
-                                    });
+                                // Envía el resultado al servidor PHP en el mismo archivo mediante un formulario oculto
+                                const form = document.createElement('form');
+                                form.method = 'POST';
+                                form.action = '';
+                                const input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = 'qrData';
+                                input.value = content;
+                                form.appendChild(input);
+                                document.body.appendChild(form);
+                                form.submit();
                             });
-                        </script>
 
-                        <?php
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
-                            // Procesa el resultado del código QR en PHP
-                            $qrData = $_POST['qrData'];
-                            echo "<p>Datos del código QR procesados en PHP: $qrData</p>";
-                        }
-                        ?>
+                            Instascan.Camera.getCameras().then(function (cameras) {
+                                if (cameras.length > 0) {
+                                    scanner.start(cameras[0]);
+                                } else {
+                                    console.error('No se encontraron cámaras disponibles.');
+                                }
+                            }).catch(function (error) {
+                                console.error('Error al acceder a la cámara:', error);
+                            });
                         </script>
                     </div>
                     </div>
