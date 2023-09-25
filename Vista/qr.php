@@ -24,7 +24,7 @@
                 $cedula = $_GET['Cedula'];
 
                 // Utiliza $cedula para generar el código QR
-                require_once 'qrlib.php';
+                require_once 'phpqrcode/qrlib.php';
 
                 // Ruta donde deseas guardar el archivo QR
                 $archivoQR = "qrcodes/mi_qr.png";
