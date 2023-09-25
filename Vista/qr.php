@@ -48,15 +48,15 @@
 
                 // Configura el servidor SMTP
                 $mail->isSMTP();
-                $mail->Host = 'mail.parchefest.co '; // Cambia esto al servidor SMTP correcto
+                $mail->Host = 'mail.parchefest.co ';
                 $mail->SMTPAuth = true;
-                $mail->Username = '_mainaccount@parchefest.co'; // Cambia esto a tu correo
-                $mail->Password = '534R541%l'; // Cambia esto a tu contraseña
+                $mail->Username = 'qr@parchefest.co';
+                $mail->Password = '534R541%l'; //
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 465;
 
                 // Configura el correo electrónico
-                $mail->setFrom('wwparc@parchefest.co', 'Parchefest'); // Cambia esto a tu nombre y correo
+                $mail->setFrom('qr@parchefest.co', 'Parchefest'); // Cambia esto a tu nombre y correo
                 $mail->addAddress($correoDestino, $nombre); // Agrega el destinatario y su nombre
                 $mail->Subject = 'Código QR';
                 $mail->Body = "Hola $nombre $apellidos,\n\nAdjunto encontrarás tu código QR.";
@@ -75,7 +75,6 @@
                 }
             }
             ?>
-
         </div>
     </div>
 </div>
