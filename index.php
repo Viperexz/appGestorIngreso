@@ -10,16 +10,17 @@ public function __construct() {
     $this->conexion = $this->manejoDatos->getConexion();
 
 }
-public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono) {
+public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono,$universidad) {
 $nombre = $this->conexion->real_escape_string($nombre);
 $apellidos = $this->conexion->real_escape_string($apellidos);
 $cedula = $this->conexion->real_escape_string($cedula);
 $fechaNacimiento = $this->conexion->real_escape_string($fechaNacimiento);
 $correo = $this->conexion->real_escape_string($correo);
 $telefono = $this->conexion->real_escape_string($telefono);
+$universidad = $this->conexion->real_escape_string($universidad);
 
-$sql = "INSERT INTO Participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo)
-VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo')";
+$sql = "INSERT INTO Participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo,parUni)
+VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$universidad')";
 
 if ($this->manejoDatos->ejecutar($sql)) {
 // Registro exitoso, redirige a la página anterior con un mensaje de éxito
@@ -40,6 +41,7 @@ $cedula = $_POST['Cedula'];
 $fechaNacimiento = $_POST['FN'];
 $correo = $_POST['Correo'];
 $telefono = $_POST['Telefono'];
+$universidad = $_POST['universidadSelect'];
 
 if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimiento) || empty($correo) || empty($telefono)) {
 echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
@@ -47,6 +49,8 @@ echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
 $registrador = new clsRegistrarParticipante();
 $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono);
 }
+
+
 }
 ?>
 
@@ -103,7 +107,26 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
         </div>
         <div class="form-group">
             <label for="Telefono">Telefono</label>
-            <input type="tel" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono" required>
+            <input type="phone" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono" required>
+        </div>
+        <div class="form-group">
+            <label for="universidadCheckbox">Estudias en la universidad?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="universidadCheckbox">
+                <label class="form-check-label" for="universidadCheckbox">
+                </label>
+            </div>
+        </div>
+        <div class="form-group" id="universidadesDropdown" style="display: none;">
+            <label for="universidadSelect">Cual?</label>
+            <select class="form-control" id="universidadSelect">
+                <option value="universidad1">Unicauca</option>
+                <option value="universidad2">Unicomfacauca</option>
+                <option value="universidad3">Unversidad Cooperativa</option>
+                <option value="universidad3">Fundacion universitaria de Popayan</option>
+                <option value="universidad3">Remigton</option>
+                <option value="universidad3">Sena</option>
+            </select>
         </div>
         <div class="clearfix"></div>
         <button type="submit" class="btn btn-primary btn-responsive" id="search">Registrar</button>
@@ -124,6 +147,20 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
         } else if (mensaje === 'error') {
             alert('Error en el registro. Por favor, inténtalo de nuevo.');
         }
+    </script>
+
+    <script>
+        // Cuando se cambia el estado del checkbox
+        $('#universidadCheckbox').change(function() {
+            if (this.checked) {
+                // Mostrar el dropdown
+                $('#universidadesDropdown').show();
+            } else {
+                // Ocultar el dropdown y restablecer el valor seleccionado
+                $('#universidadesDropdown').hide();
+                $('#universidadSelect').val('');
+            }
+        });
     </script>
 
 
