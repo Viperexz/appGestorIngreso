@@ -42,12 +42,19 @@ try {
 
     // Método para ejecutar consultas INSERT, UPDATE y DELETE
     public function ejecutar($sql) {
-        if ($this->conexion->query($sql) === TRUE) {
-            return true;
-        } else {
+        try {
+            if ($this->conexion->query($sql) === TRUE) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (mysqli_sql_exception $excepcion) {
+            // Maneja la excepción aquí, puedes mostrar un mensaje de error, registrar el error, etc.
+            echo "Error en la ejecución de la consulta: " . $excepcion->getMessage();
             return false;
         }
     }
+
 
     // Método para cerrar la conexión con la base de datos
     public function cerrarConexion() {
