@@ -17,7 +17,8 @@ create table administrador
 (
    admcedula            varchar(254),
    admusuario           varchar(254),
-   admcontrasena        varchar(254)
+   admcontrasena        varchar(254),
+   primary key (admcedula)
 );
 
 /*==============================================================*/
@@ -29,7 +30,10 @@ create table participante
    parnombre            varchar(254),
    parfechanacimiento   varchar(254),
    partelefono          varchar(254),
-   parcorreo            varchar(254)
+   parcorreo            varchar(254),
+   parUni               varchar(254),
+   qrvalido             boolean,
+   primary key (parcedula)
 );
 
 /*==============================================================*/
@@ -38,6 +42,7 @@ create table participante
 create table qr
 (
    qrid                 varchar(254),
-   qrvalido             bool
+   qrvalido             boolean,
+   primary key (qrid)
 );
 
