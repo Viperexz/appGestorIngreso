@@ -20,10 +20,10 @@
     <div class="row">
         <div class="col-md-6">
             <?php
-            if (isset($_GET['Cedula']) && isset($_GET['Nombre']) && isset($_GET['Apellido'])) {
+            if (isset($_GET['Cedula']) && isset($_GET['Nombre']) && isset($_GET['Apellidos'])) {
                 $cedula = $_GET['Cedula'];
                 $nombre = $_GET['Nombre'];
-                $apellido = $_GET['Apellido'];
+                $apellido = $_GET['Apellidos'];
 
                 // Utiliza $cedula para generar el código QR
                 require_once '../phpqrcode/qrlib.php';
