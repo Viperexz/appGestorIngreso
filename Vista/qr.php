@@ -19,7 +19,7 @@
 <div class="container" id="advanced-search-form">
     <h2>Se registraron sus datos!</h2>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <?php
             if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula']) && isset($_GET['Correo'])) {
                 $nombre = $_GET['Nombre'];
@@ -41,7 +41,7 @@
 
                 require '../PHPMailer/src/PHPMailer.php';
                 require '../PHPMailer/src/SMTP.php';
-                require '../PHPMailer/src/Exception.php'; // Agrega esta línea para incluir la excepción
+                require '../PHPMailer/src/Exception.php';
 
                 // Crea una instancia de PHPMailer
                 $mail = new PHPMailer\PHPMailer\PHPMailer(true); // Usa 'true' para activar excepciones
@@ -59,7 +59,7 @@
                 // Configura el correo electrónico
                 $mail->setFrom('qr@parchefest.co', 'Parchefest'); // Cambia esto a tu nombre y correo
                 $mail->addAddress($correoDestino, $nombre); // Agrega el destinatario y su nombre
-                $mail->Subject = 'Código QR';
+                $mail->Subject = 'Codigo QR';
                 $mail->Body = "Hola $nombre $apellidos,\n\nAdjunto encontrarás tu código QR.";
 
                 // Adjunta el código QR al correo
