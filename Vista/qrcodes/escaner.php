@@ -55,7 +55,8 @@
                             const qrResult = document.getElementById('qr-result');
 
                             scanButton.addEventListener('click', () => {
-                                navigator.mediaDevices.getUserMedia({ video: true })
+                                // Accede a la cámara trasera especificando 'environment' como el facingMode
+                                navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
                                     .then((stream) => {
                                         videoElement.srcObject = stream;
                                         videoElement.play();
