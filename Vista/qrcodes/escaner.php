@@ -45,59 +45,63 @@
                 <div class="row">
                     <!-- Primera columna -->
                     <div class="col-md-6">
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        </head>
-                        <body>
                         <video id="qr-video" width="100%" height="auto"></video>
                         <button id="scan-button">Escanear QR</button>
                         <div id="qr-result"></div>
+
                         <script>
                             const videoElement = document.getElementById('qr-video');
                             const scanButton = document.getElementById('scan-button');
                             const qrResult = document.getElementById('qr-result');
 
                             scanButton.addEventListener('click', () => {
-                                // ... Código para escanear el código QR ...
+                                navigator.mediaDevices.getUserMedia({ video: true })
+                                    .then((stream) => {
+                                        videoElement.srcObject = stream;
+                                        videoElement.play();
 
-                                if (code) {
-                                    qrResult.textContent = 'Contenido del código QR: ' + code.data;
+                                        const canvas = document.createElement('canvas');
+                                        canvas.width = videoElement.videoWidth;
+                                        canvas.height = videoElement.videoHeight;
+                                        const context = canvas.getContext('2d');
+                                        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                                        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 
-                                    // Envía el resultado al servidor PHP en el mismo archivo
-                                    $.ajax({
-                                        type: 'POST', // Puedes usar 'GET' si prefieres
-                                        url: '', // Deja esto en blanco para que la solicitud se haga al mismo archivo
-                                        data: { qrData: code.data }, // Datos a enviar al servidor
-                                        success: function(response) {
-                                            // Maneja la respuesta del servidor aquí si es necesario
-                                            console.log('Respuesta del servidor:', response);
-                                        },
-                                        error: function(error) {
-                                            console.error('Error al enviar datos al servidor:', error);
+                                        const code = jsQR(imageData.data, imageData.width, imageData.height);
+                                        if (code) {
+                                            qrResult.textContent = 'Contenido del código QR: ' + code.data;
+
+                                            // Envía el resultado al servidor PHP utilizando AJAX
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '', // Deja esto en blanco para enviar la solicitud al mismo archivo
+                                                data: { qrData: code.data },
+                                                success: function(response) {
+                                                    console.log('Respuesta del servidor:', response);
+                                                },
+                                                error: function(error) {
+                                                    console.error('Error al enviar datos al servidor:', error);
+                                                }
+                                            });
+                                        } else {
+                                            qrResult.textContent = 'No se encontró ningún código QR.';
                                         }
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error al acceder a la cámara: ', error);
                                     });
-                                } else {
-                                    qrResult.textContent = 'No se encontró ningún código QR.';
-                                }
                             });
-
-                            <?php
-                            if (isset($_POST['qrData'])) {
-                                $qrData = $_POST['qrData'];
-
-                                // Haz algo con $qrData aquí (por ejemplo, almacenarlo en la base de datos o realizar alguna acción).
-
-                                // Responde al cliente si es necesario
-                                echo "Datos del código QR recibidos: " . $qrData;
-                            }
-                            ?>
                         </script>
-                        </body>
-                        </html>
 
+                        <?php
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
+                            // Procesa el resultado del código QR en PHP
+                            $qrData = $_POST['qrData'];
+                            echo "<p>Datos del código QR procesados en PHP: $qrData</p>";
+                        }
+                        ?>
+                        </script>
+                    </div>
                     </div>
                 </div>
             </div>
