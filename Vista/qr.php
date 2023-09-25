@@ -56,7 +56,7 @@
                 $mail->Port = 465; // Puerto SMTP
 
                 // Configura el correo electrónico
-                $mail->setFrom('tu_correo@example.com', 'Parchefest'); // Cambia esto a tu nombre y correo
+                $mail->setFrom('qr@parchefest.co', 'Parchefest'); // Cambia esto a tu nombre y correo
                 $mail->addAddress($correoDestino, $nombre); // Agrega el destinatario y su nombre
                 $mail->Subject = 'Código QR';
                 $mail->Body = "Hola $nombre $apellidos,\n\nAdjunto encontrarás tu código QR.";
