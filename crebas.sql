@@ -32,6 +32,7 @@ create table participante
    partelefono          varchar(254),
    parcorreo            varchar(254),
    parUni               varchar(254),
+   parGenero            varchar(2),
    qrvalido             boolean,
    primary key (parcedula)
 );

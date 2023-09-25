@@ -10,7 +10,7 @@ public function __construct() {
     $this->conexion = $this->manejoDatos->getConexion();
 
 }
-public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono,$universidad) {
+public function registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono,$universidad,$genero) {
 $nombre = $this->conexion->real_escape_string($nombre);
 $apellidos = $this->conexion->real_escape_string($apellidos);
 $cedula = $this->conexion->real_escape_string($cedula);
@@ -18,7 +18,7 @@ $fechaNacimiento = $this->conexion->real_escape_string($fechaNacimiento);
 $correo = $this->conexion->real_escape_string($correo);
 $telefono = $this->conexion->real_escape_string($telefono);
 $universidad = $this->conexion->real_escape_string($universidad);
-$sql = "INSERT INTO participante VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$universidad',TRUE)";
+$sql = "INSERT INTO participante VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$universidad','$genero',TRUE)";
 
 if ($this->manejoDatos->ejecutar($sql)) {
 // Registro exitoso, redirige a la página anterior con un mensaje de éxito
@@ -40,6 +40,8 @@ $fechaNacimiento = $_POST['FN'];
 $correo = $_POST['Correo'];
 $telefono = $_POST['Telefono'];
 $universidad = $_POST['universidadSelect'];
+$genero = $_POST['genero'];
+
 if(empty($universidad))
 {
     $universidad = 'null';
@@ -48,7 +50,7 @@ if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimie
 echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
 } else {
 $registrador = new clsRegistrarParticipante();
-$registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono,$universidad);
+$registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono,$universidad,$genero);
 }
 
 
@@ -86,7 +88,7 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
         </div>
         <div class="form-group">
             <label for="Cedula">Cedula</label>
-            <input type="text" class="form-control" placeholder="Cedula" id="Cedula" name="Cedula" required>
+            <input type="text" class="form-control" placeholder="Cedula" id="Cedula" name="Cedula" required pattern="[0-9]+" inputmode="numeric">
         </div>
         <div class="form-group">
             <label>Fecha de nacimiento</label>
@@ -98,7 +100,10 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
             </div>
             <script type="text/javascript">
                 $(function () {
-                    $('#datetimepicker1').datetimepicker();
+                    $('#datetimepicker1').datetimepicker({
+                        format: 'DD-MM-YYYY', // Puedes cambiar el formato aquí
+                        useCurrent: false // Evita que se establezca la hora actual al hacer clic en el icono del calendario
+                    });
                 });
             </script>
         </div>
@@ -108,7 +113,19 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
         </div>
         <div class="form-group">
             <label for="Telefono">Telefono</label>
-            <input type="phone" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono" required>
+            <input type="phone" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono" required pattern="[0-9]+" inputmode="numeric">
+        </div>
+        <div class="form-group">
+            <label for="Telefono">Genero</label>
+            <div>
+                <label for="femenino">Femenino:</label>
+                <input type="radio" id="femenino" name="genero" value="F"><br>
+
+                <label for="masculino">Masculino:</label>
+                <input type="radio" id="masculino" name="genero" value="M"><br>
+            </div>
+
+
         </div>
         <div class="form-group">
             <label for="universidadCheckbox">Estudias en la universidad?</label>
@@ -126,6 +143,9 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
                 <option value="universidad3">Unversidad Cooperativa</option>
                 <option value="universidad3">Fundacion universitaria de Popayan</option>
                 <option value="universidad3">Remigton</option>
+                <option value="universidad3">Colegio Mayor</option>
+                <option value="universidad3">Universidad Antonio Nariño</option>
+                <option value="universidad3">Unversidad Autonoma</option>
                 <option value="universidad3">Sena</option>
             </select>
         </div>
