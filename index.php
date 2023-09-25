@@ -46,7 +46,7 @@ if(empty($universidad))
 {
     $universidad = 'null';
 }
-if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimiento) || empty($correo) || empty($telefono)) {
+if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimiento) || empty($correo) || empty($telefono)||empty($genero)) {
 echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
 } else {
 $registrador = new clsRegistrarParticipante();
@@ -116,7 +116,7 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
             <input type="phone" class="form-control" placeholder="Telefono" id="Telefono" name="Telefono" required pattern="[0-9]+" inputmode="numeric">
         </div>
         <div class="form-group">
-            <label for="Telefono">Genero</label>
+            <label for="Genero">Genero</label>
             <div>
                 <label for="femenino">Femenino:</label>
                 <input type="radio" id="femenino" name="genero" value="F"><br>
@@ -130,11 +130,14 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
         <div class="form-group">
             <label for="universidadCheckbox">Estudias en la universidad?</label>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="universidadCheckbox">
-                <label class="form-check-label" for="universidadCheckbox">
-                </label>
+                <input class="form-check-input" type="checkbox" id="universidadCheckbox" name="universidadCheckbox">
             </div>
+            <label class="form-check-label" for="universidadCheckbox" style="padding-top: 3px;">
+                Si
+            </label>
         </div>
+
+
         <div class="form-group" id="universidadesDropdown" style="display: none;">
             <label for="universidadSelect">Cual?</label>
             <select class="form-control" id="universidadSelect">
