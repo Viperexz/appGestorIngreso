@@ -20,10 +20,10 @@
     <div class="row">
         <div class="col-md-6">
             <?php
-            if (isset($_POST['Cedula']) && isset($_POST['Nombre']) && isset($_POST['Apellidos'])) {
-                $cedula = $_POST['Cedula'];
-                $nombre = $_POST['Nombre'];
-                $apellidos = $_POST['Apellidos'];
+            if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula'])) {
+                $nombre = $_GET['Nombre'];
+                $apellidos = $_GET['Apellidos'];
+                $cedula = $_GET['Cedula'];
 
                 // Utiliza $cedula para generar el código QR
                 require_once '../phpqrcode/qrlib.php';
@@ -46,13 +46,6 @@
         </div>
         <div class="col-md-4">
             <h3> Se registraron tus datos correctamente, <?php echo $nombre . ' ' . $apellidos; ?>. El QR se envió a tu correo</h3>
-            <h4> Recuerda presentarlo en el evento.</h4>
-        </div>
-    </div>
-</div>
-        <div class="col-md-6">
-            <h3> Se registraron tus datos correctamente, <?php echo $nombre . ' ' . $apellido; ?>. </h3>
-            <h4> El QR se envió a tu correo</h4>
             <h4> Recuerda presentarlo en el evento.</h4>
         </div>
     </div>
