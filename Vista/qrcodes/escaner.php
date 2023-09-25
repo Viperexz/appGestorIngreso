@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
     <!------ Include the above in your HEAD tag ---------->
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.1/instascan.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -55,41 +55,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
                 <div class="row">
                     <!-- Primera columna -->
                     <div class="col-md-6">
-                        <h1>Escáner de Códigos QR</h1>
-                        <video id="qr-video" width="100%" height="auto"></video>
-                        <div id="qr-result"></div>
+                        <video id="scanner" style="width: 100%; height: auto;"></video>
+                        <div id="result"></div>
 
                         <script>
-                            const videoElement = document.getElementById('qr-video');
-                            const qrResult = document.getElementById('qr-result');
+                            let scanning = true; // Variable de control
 
-                            const scanner = new Instascan.Scanner({ video: videoElement });
-
-                            scanner.addListener('scan', function (content) {
-                                qrResult.textContent = 'Contenido del código QR: ' + content;
-
-                                // Envía el resultado al servidor PHP en el mismo archivo mediante un formulario oculto
-                                const form = document.createElement('form');
-                                form.method = 'POST';
-                                form.action = '';
-                                const input = document.createElement('input');
-                                input.type = 'hidden';
-                                input.name = 'qrData';
-                                input.value = content;
-                                form.appendChild(input);
-                                document.body.appendChild(form);
-                                form.submit();
-                            });
-
-                            Instascan.Camera.getCameras().then(function (cameras) {
-                                if (cameras.length > 0) {
-                                    scanner.start(cameras[0]);
-                                } else {
-                                    console.error('No se encontraron cámaras disponibles.');
+                            Quagga.init({
+                                inputStream: {
+                                    name: "Live",
+                                    type: "LiveStream",
+                                    target: document.querySelector("#scanner")
+                                },
+                                decoder: {
+                                    readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader", "2of5_reader", "code_93_reader"]
                                 }
-                            }).catch(function (error) {
-                                console.error('Error al acceder a la cámara:', error);
                             });
+
+                            Quagga.onDetected(function(result) {
+                                if (scanning) {
+                                    const code = result.codeResult.code;
+                                    document.querySelector("#result").textContent = "Código de barras detectado: " + code;
+
+                                    // Envía el resultado al servidor PHP en el mismo archivo mediante un formulario oculto
+                                    const form = document.createElement('form');
+                                    form.method = 'POST';
+                                    form.action = '';
+                                    const input = document.createElement('input');
+                                    input.type = 'hidden';
+                                    input.name = 'barcodeData';
+                                    input.value = code;
+                                    form.appendChild(input);
+                                    document.body.appendChild(form);
+                                    form.submit();
+
+                                    scanning = false; // Detener el escaneo
+                                }
+                            });
+
+                            Quagga.start();
                         </script>
                     </div>
                     </div>
