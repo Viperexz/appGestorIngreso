@@ -20,32 +20,23 @@
     <div class="row">
         <div class="col-md-6">
             <?php
-            if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['Cedula'])) {
-                // Se enviaron datos a través del método POST
-                $cedula = $_POST['Cedula'];
-            } elseif ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['Cedula'])) {
-                // Se enviaron datos a través del método GET
+            if (isset($_GET['Cedula'])) {
                 $cedula = $_GET['Cedula'];
+
+                // Utiliza $cedula para generar el código QR
+                require_once 'qrlib.php';
+
+                // Ruta donde deseas guardar el archivo QR
+                $archivoQR = "qrcodes/mi_qr.png";
+
+                // Genera el código QR
+                QRcode::png($cedula, $archivoQR, QR_ECLEVEL_L);
+
+                // Muestra el QR en la página
+                echo '<img src="' . $archivoQR . '" alt="Código QR">';
             } else {
-                // No se proporcionó la variable 'Cedula'
-                echo "La variable 'Cedula' no se ha enviado.";
-                exit;
+                echo "No se proporcionó la variable 'Cedula' para generar el código QR.";
             }
-
-            // Ahora puedes usar la variable $cedula en tu función o código
-            // ... tu código aquí ...
-
-            // Por ejemplo, puedes utilizar la librería phpqrcode para generar un QR:
-            require_once 'qrlib.php';
-
-            // Ruta donde deseas guardar el archivo QR
-            $archivoQR = "qrcodes/mi_qr.png";
-
-            // Genera el código QR
-            QRcode::png($cedula, $archivoQR, QR_ECLEVEL_L);
-
-            // Puedes mostrar el QR o realizar cualquier otra operación que desees aquí
-            echo '<img src="' . $archivoQR . '" alt="Código QR">';
             ?>
 
 
