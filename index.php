@@ -19,11 +19,11 @@ $correo = $this->conexion->real_escape_string($correo);
 $telefono = $this->conexion->real_escape_string($telefono);
 
 $sql = "INSERT INTO Participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo)
-VALUES ('$cedula','$nombre + $apellidos',  '$fechaNacimiento',  '$telefono','$correo')";
+VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo')";
 
 if ($this->manejoDatos->ejecutar($sql)) {
 // Registro exitoso, redirige a la página anterior con un mensaje de éxito
-header("Location: index.php?mensaje=exito");
+    header("Location: /vista/qr.php?Cedula=$cedula");
 exit;
 } else {
 // Error en el registro, redirige a la página anterior con un mensaje de error
@@ -133,4 +133,3 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
 
 
 
-<

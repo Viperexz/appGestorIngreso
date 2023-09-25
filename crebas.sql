@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     24/09/2023 11:12:39 a. m.                    */
+/* Created on:     24/09/2023 11:12:39 a.ï¿½m.                    */
 /*==============================================================*/
 
 
@@ -13,31 +13,31 @@ drop table if exists Qr;
 /*==============================================================*/
 /* Table: Administrador                                         */
 /*==============================================================*/
-create table Administrador
+create table administrador
 (
-   admCedula            varchar(254),
-   admUsuario           varchar(254),
-   admContrasena        varchar(254)
+   admcedula            varchar(254),
+   admusuario           varchar(254),
+   admcontrasena        varchar(254)
 );
 
 /*==============================================================*/
 /* Table: Participante                                          */
 /*==============================================================*/
-create table Participante
+create table participante
 (
-   parCedula            varchar(254),
-   parNombre            varchar(254),
-   parFechaNacimiento   varchar(254),
-   parTelefono          varchar(254),
-   parCorreo            varchar(254)
+   parcedula            varchar(254),
+   parnombre            varchar(254),
+   parfechanacimiento   varchar(254),
+   partelefono          varchar(254),
+   parcorreo            varchar(254)
 );
 
 /*==============================================================*/
 /* Table: Qr                                                    */
 /*==============================================================*/
-create table Qr
+create table qr
 (
-   qrID                 varchar(254),
-   qrValido             bool
+   qrid                 varchar(254),
+   qrvalido             bool
 );
 
