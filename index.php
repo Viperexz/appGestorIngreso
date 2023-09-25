@@ -42,7 +42,10 @@ $fechaNacimiento = $_POST['FN'];
 $correo = $_POST['Correo'];
 $telefono = $_POST['Telefono'];
 $universidad = $_POST['universidadSelect'];
-
+if(empty($universidad))
+{
+    $universidad = 'null';
+}
 if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimiento) || empty($correo) || empty($telefono)) {
 echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
 } else {
