@@ -5,11 +5,10 @@ class clsLogin {
     private $manejoDatos;
 
     public function __construct() {
-        // Inicializa la instancia de clsManejoDatos
         $this->manejoDatos = new \Controlador\clsManejoDatos();
 }
 
-public function autenticar($username, $password) {
+public function Autenticacion($username, $password) {
 // Realiza la autenticación aquí
 $consulta = "SELECT * FROM administrador WHERE admUsuario = '$username' AND admContrasena = '$password'";
 $resultados = $this->manejoDatos->consultar($consulta);
@@ -108,7 +107,7 @@ $autenticacion->cerrarConexion();
     <div class="heading">
         <h1>Bienvenido Administrador</h1>
     </div>
-    <form action="../Controlador/clsLogin.php" method="POST" onsubmit="return validarFormulario();"> <!-- Agregado onsubmit para llamar a la función de validación -->
+    <form action="" method="POST" onsubmit="return validarFormulario();"> <!-- Agregado onsubmit para llamar a la función de validación -->
         <div class="form-group">
             <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
             <div id="aviso-username" class="aviso">Este campo es obligatorio</div> <!-- Mensaje de advertencia para username -->
