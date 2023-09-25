@@ -50,7 +50,7 @@ if (empty($nombre) || empty($apellidos) || empty($cedula) || empty($fechaNacimie
 echo "Todos los campos son obligatorios. Por favor, complete todos los campos.";
 } else {
 $registrador = new clsRegistrarParticipante();
-$registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono);
+$registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo, $telefono,$universidad);
 }
 
 
