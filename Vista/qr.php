@@ -27,7 +27,7 @@
                 require_once '../phpqrcode/qrlib.php';
 
                 // Ruta donde deseas guardar el archivo QR
-                $archivoQR = "qrcodes/mi_qr.png";
+                $archivoQR = "qrcodes/$cedula.png";
 
                 // Genera el código QR
                 QRcode::png($cedula, $archivoQR, QR_ECLEVEL_L);

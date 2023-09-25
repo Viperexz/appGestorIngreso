@@ -1,11 +1,3 @@
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
-    // Procesar los datos del código QR aquí
-    $qrData = $_POST['qrData'];
-    echo "Datos del código QR procesados: $qrData";
-    exit; // Detiene la ejecución después de procesar los datos
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
     <!------ Include the above in your HEAD tag ---------->
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -53,48 +46,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrData'])) {
             <h2>Escaner: </h2>
             <div class="container">
                 <div class="row">
-                    <!-- Primera columna -->
+
                     <div class="col-md-6">
                         <video id="scanner" style="width: 100%; height: auto;"></video>
                         <div id="result"></div>
-
                         <script>
-                            let scanning = true; // Variable de control
+                            const videoElement = document.getElementById('qr-video');
+                            const scanButton = document.getElementById('scan-button');
+                            const qrResult = document.getElementById('qr-result');
+                            let isScanning = false; // Variable para controlar si se está escaneando
 
-                            Quagga.init({
-                                inputStream: {
-                                    name: "Live",
-                                    type: "LiveStream",
-                                    target: document.querySelector("#scanner")
-                                },
-                                decoder: {
-                                    readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader", "2of5_reader", "code_93_reader"]
-                                }
+                            scanButton.addEventListener('click', () => {
+                                if (!isScanning) {
+                                    isScanning = true;
+
+                                    navigator.mediaDevices.getUserMedia({ video: true })
+                                        .then((stream) => {
+                                            videoElement.srcObject = stream;
+                                            videoElement.play();
+
+                                            const canvas = document.createElement('canvas');
+                                            canvas.width = videoElement.videoWidth;
+                                            canvas.height = videoElement.videoHeight;
+                                            const context = canvas.getContext('2d');
+                                            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                                            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+
+                                            const code = jsQR(imageData.data, imageData.width, imageData.height);
+                                            if (code) {
+                                                qrResult.textContent = 'Contenido del código QR: ' + code.data;
+
+                                                // Detener la cámara
+                                                stream.getTracks().forEach(track => track.stop());
+
+                                                // Enviar datos al archivo PHP mediante AJAX
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: 'procesar_qr.php', // Cambia 'procesar_qr.php' al nombre de tu archivo PHP
+                                                    data: { qrData: code.data },
+                                                    success: function(response) {
+                                                        console.log('Respuesta del servidor:', response);
+
+                                                        // Mostrar datos en una ventana emergente
+                                                        const popupWindow = window.open('', '_blank', 'width=400,height=200');
+                                                        popupWindow.document.write('<p>' + response + '</p>');
+                                                    },
+                                                    error: function(error) {
+                                                        console.error('Error al enviar datos al servidor:', error);
+                                                    }
+                                                });
+
+                                                // Cambiar el estado de escaneo
+                                                isScanning = false;
+                                            } else {
+                                                qrResult.textContent = 'No se encontró ningún código QR.';
+                                                isScanning = false;
+                                            }
                             });
-
-                            Quagga.onDetected(function(result) {
-                                if (scanning) {
-                                    const code = result.codeResult.code;
-                                    document.querySelector("#result").textContent = "Código de barras detectado: " + code;
-
-                                    // Envía el resultado al servidor PHP en el mismo archivo mediante un formulario oculto
-                                    const form = document.createElement('form');
-                                    form.method = 'POST';
-                                    form.action = '';
-                                    const input = document.createElement('input');
-                                    input.type = 'hidden';
-                                    input.name = 'barcodeData';
-                                    input.value = code;
-                                    form.appendChild(input);
-                                    document.body.appendChild(form);
-                                    form.submit();
-
-                                    scanning = false; // Detener el escaneo
-                                }
-                            });
-
-                            Quagga.start();
                         </script>
+
+                        <?php
+                        if (isset($_POST['qrData'])) {
+                            $qrData = $_POST['qrData'];
+
+                            // Haz algo con $qrData aquí (por ejemplo, almacenarlo en la base de datos o realizar alguna acción).
+
+                            // Responde al cliente si es necesario (esto se mostrará en la consola del navegador si tienes un success callback).
+                            echo "Datos del código QR recibidos: " . $qrData;
+                        } else {
+                            echo "No se recibieron datos del código QR.";
+                        }
+                        ?>
                     </div>
                     </div>
                 </div>
