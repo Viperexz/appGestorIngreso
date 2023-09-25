@@ -124,8 +124,6 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
                 <label for="masculino">Masculino:</label>
                 <input type="radio" id="masculino" name="genero" value="M"><br>
             </div>
-
-
         </div>
         <div class="form-group">
             <label for="universidadCheckbox">Estudias en la universidad?</label>

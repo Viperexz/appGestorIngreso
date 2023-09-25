@@ -1,7 +1,7 @@
 <?php
 require_once 'clsManejoDatos.php';
 
-class clsLogin {
+class obsLogin {
     private $manejoDatos;
 
     public function __construct() {

@@ -20,10 +20,10 @@
     <div class="row">
         <div class="col-md-6">
             <?php
-            if (isset($_GET['Cedula']) && isset($_GET['Nombre']) && isset($_GET['Apellidos'])) {
-                $cedula = $_GET['Cedula'];
-                $nombre = $_GET['Nombre'];
-                $apellido = $_GET['Apellidos'];
+            if (isset($_POST['Cedula']) && isset($_POST['Nombre']) && isset($_POST['Apellidos'])) {
+                $cedula = $_POST['Cedula'];
+                $nombre = $_POST['Nombre'];
+                $apellidos = $_POST['Apellidos'];
 
                 // Utiliza $cedula para generar el código QR
                 require_once '../phpqrcode/qrlib.php';
@@ -40,10 +40,16 @@
                 // Muestra el QR en la página
                 echo '<img src="' . $archivoQR . '" alt="Código QR" width="' . $tamaño . '" height="' . $tamaño . '">';
             } else {
-                echo "No se proporcionó la variable 'Cedula' para generar el código QR.";
+                echo "No se proporcionaron los datos necesarios para generar el código QR.";
             }
             ?>
         </div>
+        <div class="col-md-4">
+            <h3> Se registraron tus datos correctamente, <?php echo $nombre . ' ' . $apellidos; ?>. El QR se envió a tu correo</h3>
+            <h4> Recuerda presentarlo en el evento.</h4>
+        </div>
+    </div>
+</div>
         <div class="col-md-6">
             <h3> Se registraron tus datos correctamente, <?php echo $nombre . ' ' . $apellido; ?>. </h3>
             <h4> El QR se envió a tu correo</h4>
