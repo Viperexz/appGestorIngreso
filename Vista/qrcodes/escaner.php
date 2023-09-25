@@ -40,8 +40,8 @@
             </nav>
         </aside>
         <main class="col bg-faded py-3 flex-grow-1">
+            <h2>Escaner: </h2>
             <div class="container">
-                <h2>Escaner: </h2>
                 <div class="row">
                     <!-- Primera columna -->
                     <div class="col-md-6">
@@ -55,8 +55,6 @@
                         <video id="qr-video" width="100%" height="auto"></video>
                         <button id="scan-button">Escanear QR</button>
                         <div id="qr-result"></div>
-
-                        <script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script>
                         <script>
                             const videoElement = document.getElementById('qr-video');
                             const scanButton = document.getElementById('scan-button');
