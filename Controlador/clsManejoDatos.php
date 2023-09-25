@@ -3,6 +3,8 @@
 namespace Controlador;
 
 use mysqli;
+use mysqli_sql_exception;
+
 class clsManejoDatos {
     private $conexion;
 
