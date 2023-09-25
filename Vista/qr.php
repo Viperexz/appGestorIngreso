@@ -21,8 +21,6 @@
     <div class="row">
         <div class="col-md-6">
             <?php
-            require '../PHPMailer/src/PHPMailer.php';
-            require '../PHPMailer/src/SMTP.php';
             if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula']) && isset($_GET['Correo'])) {
                 $nombre = $_GET['Nombre'];
                 $apellidos = $_GET['Apellidos'];
@@ -42,8 +40,8 @@
                 QRcode::png($cedula, $archivoQR, QR_ECLEVEL_L, $tamaño);
 
                 // Incluye la biblioteca PHPMailer
-                require 'PHPMailer/PHPMailer.php';
-                require 'PHPMailer/SMTP.php';
+                require '../PHPMailer/src/PHPMailer.php';
+                require '../PHPMailer/src/SMTP.php';
 
                 // Crea una instancia de PHPMailer
                 $mail = new PHPMailer\PHPMailer\PHPMailer();
@@ -68,8 +66,10 @@
 
                 // Envía el correo electrónico
                 if ($mail->send()) {
-                    echo "<h3>Se registraron tus datos correctamente, $nombre $apellidos.</h3>";
-                    echo "<h4>El código QR se envió a tu correo electrónico.</h4>";
+                    echo '<img src="' . $archivoQR . '" alt="Código QR" width="' . $tamaño . '" height="' . $tamaño . '">';
+                    // Muestra el mensaje de confirmación
+                    echo "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
+                    echo "<h4>Recuerda presentarlo en el evento.</h4>";
                 } else {
                     echo "<h3>Error al enviar el correo electrónico.</h3>";
                 }
