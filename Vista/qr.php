@@ -39,12 +39,13 @@
                 // Genera el código QR con el tamaño personalizado
                 QRcode::png($cedula, $archivoQR, QR_ECLEVEL_L, $tamaño);
 
-                // Incluye la biblioteca PHPMailer
                 require '../PHPMailer/src/PHPMailer.php';
                 require '../PHPMailer/src/SMTP.php';
+                require '../PHPMailer/src/Exception.php'; // Agrega esta línea para incluir la excepción
 
                 // Crea una instancia de PHPMailer
-                $mail = new PHPMailer\PHPMailer\PHPMailer();
+                $mail = new PHPMailer\PHPMailer\PHPMailer(true); // Usa 'true' para activar excepciones
+
 
                 // Configura el servidor SMTP
                 $mail->isSMTP();
@@ -65,13 +66,15 @@
                 $mail->addAttachment($archivoQR, 'codigo_qr.png');
 
                 // Envía el correo electrónico
-                if ($mail->send()) {
+                try {
+                    // Envía el correo electrónico
+                    $mail->send();
                     echo '<img src="' . $archivoQR . '" alt="Código QR" width="' . $tamaño . '" height="' . $tamaño . '">';
                     // Muestra el mensaje de confirmación
                     echo "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
                     echo "<h4>Recuerda presentarlo en el evento.</h4>";
-                } else {
-                    echo "<h3>Error al enviar el correo electrónico.</h3>";
+                } catch (Exception $e) {
+                    echo "<h3>Error al enviar el correo electrónico: {$mail->ErrorInfo}</h3>";
                 }
             }
             ?>
