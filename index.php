@@ -23,7 +23,7 @@ VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$corr
 
 if ($this->manejoDatos->ejecutar($sql)) {
 // Registro exitoso, redirige a la página anterior con un mensaje de éxito
-    header("Location: vista/qr.php?Cedula=$cedula");
+    header("Location: Vista/qr.php?Cedula=$cedula");
 exit;
 } else {
 // Error en el registro, redirige a la página anterior con un mensaje de error
