@@ -19,7 +19,7 @@ $correo = $this->conexion->real_escape_string($correo);
 $telefono = $this->conexion->real_escape_string($telefono);
 $universidad = $this->conexion->real_escape_string($universidad);
 $sql = "INSERT INTO participante (parCedula, parNombre, parFechaNacimiento, parTelefono, parCorreo,parUni)
-VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$universidad',TRUE)";
+VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$universidad','TRUE')";
 
 if ($this->manejoDatos->ejecutar($sql)) {
 // Registro exitoso, redirige a la página anterior con un mensaje de éxito
