@@ -48,7 +48,7 @@
 
                 // Configura el servidor SMTP
                 $mail->isSMTP();
-                $mail->Host = 'mail.parchefest.co ';
+                $mail->Host = 'mail.parchefest.co';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'qr@parchefest.co';
                 $mail->Password = '534R541%l'; //
