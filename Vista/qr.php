@@ -22,7 +22,7 @@
 <div class="container" id="advanced-search-form">
     <h2>Se registraron sus datos!</h2>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <?php
             if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula']) && isset($_GET['Correo'])) {
                 $nombre = $_GET['Nombre'];
@@ -72,8 +72,11 @@
                     $mail->send();
                     echo '<img src="' . $archivoQR . '" alt="Código QR" width="' . $tamaño . '" height="' . $tamaño . '">';
                     // Muestra el mensaje de confirmación
-                    $GLOBALS['mensaje'] = "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
+                    $GLOBALS['mensaje'] = "<h3>Se registraron tus datos correctamente, $nombre $apellidos. </h3>";
+                    $GLOBALS['mensaje'] .= "<h4></h4>";
+                    $GLOBALS['mensaje'] .= "<h4>El QR se envió a tu correo</h4>";
                     $GLOBALS['mensaje'] .= "<h4>Verifica tu bandeja de Spam.</h4>";
+                    $GLOBALS['mensaje'] .= "<h4></h4>";
                     $GLOBALS['mensaje'] .= "<h4>Recuerda presentarlo en el evento.</h4>";
                 } catch (Exception $e) {
                     $GLOBALS['mensaje'] = "<h3>Error al enviar el correo electrónico: {$mail->ErrorInfo}</h3>";
@@ -82,7 +85,7 @@
             }
             ?>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <?php
             echo $GLOBALS['mensaje'];
             ?>
