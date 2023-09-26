@@ -16,10 +16,13 @@
     <title>Registro al evento</title>
 </head>
 <body>
+<div class="text-center">
+    <img src="Recursos/giftMenu.gif" alt="Imagen" class="img-responsive center-block">
+</div>
 <div class="container" id="advanced-search-form">
     <h2>Se registraron sus datos!</h2>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <?php
             if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula']) && isset($_GET['Correo'])) {
                 $nombre = $_GET['Nombre'];
@@ -34,7 +37,7 @@
                 $archivoQR = "qrcodes/$cedula.png";
 
                 // Tamaño personalizado para el código QR (por ejemplo, 150x150 píxeles)
-                $tamaño = 150;
+                $tamaño = 300;
 
                 // Genera el código QR con el tamaño personalizado
                 QRcode::png($cedula, $archivoQR, QR_ECLEVEL_L, $tamaño);
@@ -70,8 +73,8 @@
                     echo '<img src="' . $archivoQR . '" alt="Código QR" width="' . $tamaño . '" height="' . $tamaño . '">';
                     // Muestra el mensaje de confirmación
                     $GLOBALS['mensaje'] = "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
-                    $GLOBALS['mensaje'] .= "<h4>Recuerda presentarlo en el evento.</h4>";
                     $GLOBALS['mensaje'] .= "<h4>Verifica tu bandeja de Spam.</h4>";
+                    $GLOBALS['mensaje'] .= "<h4>Recuerda presentarlo en el evento.</h4>";
                 } catch (Exception $e) {
                     $GLOBALS['mensaje'] = "<h3>Error al enviar el correo electrónico: {$mail->ErrorInfo}</h3>";
                 }
@@ -79,7 +82,7 @@
             }
             ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <?php
             echo $GLOBALS['mensaje'];
             ?>
