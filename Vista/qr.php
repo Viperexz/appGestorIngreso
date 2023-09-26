@@ -19,7 +19,7 @@
 <div class="container" id="advanced-search-form">
     <h2>Se registraron sus datos!</h2>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <?php
             if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula']) && isset($_GET['Correo'])) {
                 $nombre = $_GET['Nombre'];
@@ -64,8 +64,13 @@
 
                 // Adjunta el código QR al correo
                 $mail->addAttachment($archivoQR, 'codigo_qr.png');
+            ?>
 
-                // Envía el correo electrónico
+        </div>
+        <div class="col-md-4">
+
+                <?php
+             // Envía el correo electrónico
                 try {
                     // Envía el correo electrónico
                     $mail->send();
@@ -73,12 +78,13 @@
                     // Muestra el mensaje de confirmación
                     echo "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
                     echo "<h4>Recuerda presentarlo en el evento.</h4>";
+                    echo "<h4>Verifica tu bandeja de Spam.</h4>";
                 } catch (Exception $e) {
                     echo "<h3>Error al enviar el correo electrónico: {$mail->ErrorInfo}</h3>";
                 }
             }
             ?>
-        </div>
+
     </div>
 </div>
 </body>
