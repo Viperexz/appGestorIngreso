@@ -64,22 +64,25 @@
 
                 // Adjunta el código QR al correo
                 $mail->addAttachment($archivoQR, 'codigo_qr.png');
-                // Envía el correo electrónico
                 try {
                     // Envía el correo electrónico
                     $mail->send();
                     echo '<img src="' . $archivoQR . '" alt="Código QR" width="' . $tamaño . '" height="' . $tamaño . '">';
                     // Muestra el mensaje de confirmación
-                    echo "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
-                    echo "<h4>Recuerda presentarlo en el evento.</h4>";
-                    echo "<h4>Verifica tu bandeja de Spam.</h4>";
+                    $GLOBALS['mensaje'] = "<h3>Se registraron tus datos correctamente, $nombre $apellidos. El QR se envió a tu correo</h3>";
+                    $GLOBALS['mensaje'] .= "<h4>Recuerda presentarlo en el evento.</h4>";
+                    $GLOBALS['mensaje'] .= "<h4>Verifica tu bandeja de Spam.</h4>";
                 } catch (Exception $e) {
-                    echo "<h3>Error al enviar el correo electrónico: {$mail->ErrorInfo}</h3>";
+                    $GLOBALS['mensaje'] = "<h3>Error al enviar el correo electrónico: {$mail->ErrorInfo}</h3>";
                 }
+
             }
             ?>
         </div>
         <div class="col-md-4">
+            <?php
+            echo $GLOBALS['mensaje'];
+            ?>
         </div>
     </div>
 </div>

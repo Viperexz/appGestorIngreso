@@ -76,6 +76,10 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
     <title>Registro al evento</title>
 </head>
 <body>
+<div class="text-center">
+    <img src="Recursos/giftMenu.gif" alt="Imagen" class="img-responsive center-block">
+</div>
+
 <div class="container" id="advanced-search-form">
     <h2>Registre sus datos</h2>
     <form id="registro-form" method="POST" action="">
