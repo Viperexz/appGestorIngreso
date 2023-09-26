@@ -19,7 +19,7 @@
 <div class="container" id="advanced-search-form">
     <h2>Se registraron sus datos!</h2>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <?php
             if (isset($_GET['Nombre']) && isset($_GET['Apellidos']) && isset($_GET['Cedula']) && isset($_GET['Correo'])) {
                 $nombre = $_GET['Nombre'];
@@ -78,6 +78,8 @@
                 }
             }
             ?>
+        </div>
+        <div class="col-md-4">
         </div>
     </div>
 </div>
