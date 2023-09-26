@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="text-center">
-    <img src="Recursos/giftMenu.gif" alt="Imagen" class="img-responsive center-block">
+    <img src="../Recursos/giftMenu.gif" alt="Imagen" class="img-responsive center-block">
 </div>
 <div class="container" id="advanced-search-form">
     <h2>Se registraron sus datos!</h2>
