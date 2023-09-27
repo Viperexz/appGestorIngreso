@@ -4,6 +4,11 @@ require_once '../Controlador/clsManejoDatos.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
+    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
+    echo '<div class="alert alert-danger">Debe iniciar sesión para acceder a esta página.</div>';
+}
 class clsLogin
 {
     private $manejoDatos;
