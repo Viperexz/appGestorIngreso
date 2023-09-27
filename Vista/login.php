@@ -85,30 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: none;
         }
     </style>
-    <script>
-        function validarFormulario() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
 
-            // Mensajes de advertencia
-            var avisoUsername = document.getElementById("aviso-username");
-            var avisoPassword = document.getElementById("aviso-password");
-
-            // Restablece los mensajes de advertencia a su estado inicial
-            avisoUsername.style.display = "none";
-            avisoPassword.style.display = "none";
-
-            if (username === "") {
-                avisoUsername.style.display = "block";
-                return false; // Evita que el formulario se envíe si username está vacío.
-            }
-
-            if (password === "") {
-                avisoPassword.style.display = "block";
-                return false; // Evita que el formulario se envíe si password está vacío.
-            }
-        }
-    </script>
 </head>
 
 <body>
@@ -136,7 +113,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
+    <script>
+        function validarFormulario() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Mensajes de advertencia
+            var avisoUsername = document.getElementById("aviso-username");
+            var avisoPassword = document.getElementById("aviso-password");
+
+            // Restablece los mensajes de advertencia a su estado inicial
+            avisoUsername.style.display = "none";
+            avisoPassword.style.display = "none";
+
+            if (username === "") {
+                avisoUsername.style.display = "block";
+                return false; // Evita que el formulario se envíe si username está vacío.
+            }
+
+            if (password === "") {
+                avisoPassword.style.display = "block";
+                return false; // Evita que el formulario se envíe si password está vacío.
+            }
+        }
+    </script>
 </div>
 </body>
+
 
 </html>
