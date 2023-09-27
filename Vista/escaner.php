@@ -178,16 +178,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrResult'])) {
     function setResult(label,result) {
         console.log(result.data);
         label.textContent = result.data;
+        // Envia los datos del escáner QR al archivo PHP actual
         $.ajax({
             type: 'POST',
-            url: 'tu_script_php.php', // Reemplaza 'tu_script_php.php' con la URL de tu script PHP
+            url: window.location.href, // Utiliza la URL actual
             data: { qrResult: result.data }, // Envía el resultado como variable POST
-            success: function(response) {
+            success: function (response) {
                 console.log('Respuesta del servidor:', response);
-
                 // Puedes hacer algo con la respuesta del servidor si es necesario
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Error al enviar datos al servidor:', error);
             }
         });
