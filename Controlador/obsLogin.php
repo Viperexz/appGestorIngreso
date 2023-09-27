@@ -15,7 +15,7 @@ class obsLogin {
         $resultados = $this->manejoDatos->consultar($consulta);
 
         if (count($resultados) === 1) {
-            header("Location: mainpage.html");
+            header("Location: mainpage.php");
             exit();
         } else {
             // La autenticación falló

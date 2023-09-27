@@ -1,56 +1,55 @@
 <?php
-
-
+// Inicia la sesión si aún no se ha iniciado
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 class clsLogin
 {
     private $manejoDatos;
-
     public function __construct()
     {
         $this->manejoDatos = new \Controlador\clsManejoDatos();
     }
-
     public function Autenticacion($username, $password)
     {
-// Realiza la autenticación aquí
+        // Realiza la autenticación aquí
         $consulta = "SELECT * FROM administrador WHERE admUsuario = '$username' AND admContrasena = '$password'";
         $resultados = $this->manejoDatos->consultar($consulta);
 
         if (count($resultados) === 1) {
-            header("Location: mainpage.html");
+            // Inicia la sesión y guarda la información del usuario
+            session_start();
+            $_SESSION['username'] = $username;
+            // Redirige al usuario a la página principal
+            header("Location: mainpage.php");
             exit();
         } else {
-// La autenticación falló
+            // La autenticación falló
             return false;
         }
     }
-
     public function cerrarConexion()
     {
-// Cierra la conexión con la base de datos
+        // Cierra la conexión con la base de datos
         $this->manejoDatos->cerrarConexion();
     }
 }
-
 // Uso de la clase
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-// Crea una instancia de Autenticacion
-    $autenticacion = new Autenticacion('tu_host', 'tu_usuario_bd', 'tu_contraseña_bd', 'tu_base_de_datos');
+    // Crea una instancia de Autenticacion
+    $autenticacion = new clsLogin();
 
-// Intenta autenticar al usuario
-    if ($autenticacion->autenticar($username, $password)) {
-// La autenticación es exitosa, puedes redirigir a una página de inicio o realizar otras acciones.
-        header("Location: mainpage.php");
-        exit();
+    // Intenta autenticar al usuario
+    if ($autenticacion->Autenticacion($username, $password)) {
+        // La autenticación es exitosa, el usuario está autenticado y la variable de sesión se ha establecido.
     } else {
-// La autenticación falló, puedes mostrar un mensaje de error.
+        // La autenticación falló, puedes mostrar un mensaje de error.
         echo "Autenticación fallida. Por favor, inténtalo de nuevo.";
     }
-
-// Cierra la conexión con la base de datos
+    // Cierra la conexión con la base de datos
     $autenticacion->cerrarConexion();
 }
 ?>
