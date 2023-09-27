@@ -4,16 +4,13 @@ if (!isset($_SESSION['username'])) {
     // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
     $mensaje = "Debe iniciar sesión para acceder a esta página.";
     header("Location: login.php?mensaje=error");
+    exit; // Añade esta línea para evitar que el código se ejecute más allá de este punto
 }
-?>
 
-<?php
 require_once '../Controlador/clsManejoDatos.php';
 
 class clsVerificarQr
 {
-
-
     private $manejoDatos;
 
     public function __construct()
@@ -38,14 +35,13 @@ class clsVerificarQr
             if (count($resultadoConsulta) > 0) {
                 // Obtenemos el valor de qrValido desde el primer resultado
                 $qrValido = $resultadoConsulta[0]['qrvalido'];
-                $parNombre = $resultadoConsulta[1]['parnombre'];
+                $parNombre = $resultadoConsulta[0]['parnombre']; // Cambio aquí para obtener el nombre del primer resultado
                 // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
-                    actualizarCodigo($cedula);
-                    echo "Se encontro la cedula";
+                    $this->actualizarCodigo($cedula);
+                    echo "Se encontró la cédula";
                     echo $parNombre;
                     exit;
-
                 } elseif ($qrValido == 0) {
                     echo "El código QR no es válido.";
                     exit;
@@ -83,16 +79,11 @@ class clsVerificarQr
         }
     }
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['qrResult'])) {
-        $qrResult = $_POST['qrResult'];
-        $consultSql = new clsVerificarQr();
-        while (true == true)
-        {
-            $consultSql -> consultarSql($qrResult);
-        }
 
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrResult'])) {
+    $qrResult = $_POST['qrResult'];
+    $consultSql = new clsVerificarQr();
+    $consultSql->consultarSql($qrResult);
 }
 ?>
 
@@ -150,15 +141,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <b>Detected QR code: </b>
                         <span id="cam-qr-result">None</span>
-                        <br>
-                        <?php
-                        // Verificar si la variable $parNombre está definida y no está vacía
-                        if (isset($parNombre) && !empty($parNombre)) {
-                            echo "<p>Nombre del participante: " . $parNombre . "</p>";
-                        } else {
-                            echo "<p>No se encontró el nombre del participante.</p>";
-                        }
-                        ?>
+                        <p id="nombre-participante">
+                            <?php
+                            // Verificar si la variable $parNombre está definida y no está vacía
+                            if (isset($parNombre) && !empty($parNombre)) {
+                                echo "Nombre del participante: " . $parNombre;
+                            } else {
+                                echo "No se encontró el nombre del participante.";
+                            }
+                            ?>
+                        </p>
 
                         </p>
                     </div>
