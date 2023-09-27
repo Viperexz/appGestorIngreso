@@ -5,10 +5,6 @@ if (!isset($_SESSION['usuario'])) {
     $mensaje = "Debe iniciar sesión para acceder a esta página.";
     header("Location: login.php");
 }
-// Comprobar si la variable de sesión 'usuario' está definida
-if (isset($_SESSION['usuario'])) {
-    $usuario = $_SESSION['usuario'];
-}
 ?>
 
 
