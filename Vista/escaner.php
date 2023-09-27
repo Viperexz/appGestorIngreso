@@ -42,6 +42,7 @@ class clsVerificarQr
                 // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
                     actualizarCodigo($cedula);
+                    echo "Se encontro la cedula";
                     exit;
 
                 } elseif ($qrValido == 0) {
