@@ -1,5 +1,6 @@
 <?php
 // Inicia la sesión si aún no se ha iniciado
+require_once '../Controlador/clsManejoDatos.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
