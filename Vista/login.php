@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Mensaje de advertencia para username -->
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="pwd" name="password" placeholder="Contraseña">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
                 <div id="aviso-password" class="aviso">Este campo es obligatorio</div>
                 <!-- Mensaje de advertencia para password -->
             </div>
