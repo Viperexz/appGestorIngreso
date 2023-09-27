@@ -1,4 +1,13 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
+    $mensaje = "Debe iniciar sesión para acceder a esta página.";
+    header("Location: login.php?mensaje=error");
+}
+?>
+
+<?php
 require_once '../Controlador/clsManejoDatos.php';
 
 class clsVerificarQr
@@ -91,47 +100,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <title>Menu Principal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra Superior</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../Recursos/css/mainpage.css">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row min-vh-100 flex-column flex-md-row h-100 d-inline-block">
-        <aside class="col-12 col-md-2 p-0 bg-dark flex-shrink-1 ">
-            <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
-                <div class="collapse navbar-collapse ">
-                    <li class="nav-item">
-                        <a class="nav-link pl-0 text-nowrap" href="#"><h4 class="font-weight-bold">Gestion Ingreso</h4></a>
-                    </li>fa-bullseye
-                    <li class="nav-item">
-                        <a class="nav-link pl-0" href="#"><i class="fa fa-book fa-fw"></i> <span class="d-none d-md-inline">Inicio</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link pl-0" href="#"><i class="fa fa-cog fa-fw"></i> <span class="d-none d-md-inline">Escaner</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link pl-0" href="#"><i class="fa fa-heart codeply fa-fw"></i> <span class="d-none d-md-inline">Ayuda</span></a>
-                    </li>
-                    </ul>
-                </div>
-            </nav>
-        </aside>
+<!-- Barra superior con Bootstrap Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- Nombre de la aplicación a la izquierda -->
+        <a class="navbar-brand" href="#">Gestion de ingreso - <?php echo isset($_SESSION['username']) ?></a>
+
+        <!-- Botón desplegable en dispositivos móviles -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú de navegación -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="escaner.php">Escaner</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ayuda.php">Ayuda</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
         <main class="col bg-faded py-3 flex-grow-1">
             <h2>Escaner: </h2>
             <div class="container">

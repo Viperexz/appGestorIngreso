@@ -6,8 +6,6 @@ if (!isset($_SESSION['username'])) {
     header("Location: login.php?mensaje=error");
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,35 +33,32 @@ if (!isset($_SESSION['username'])) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
+                    <a class="nav-link" href="mainpage.php">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="escaner.php">Escaner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ayuda</a>
+                    <a class="nav-link" href="ayuda.php">Ayuda</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Contenido principal -->
 <div class="container">
     <div class="row">
-        <h1> Bienvenido al panel administrativo. </h1>
-    </div>
-    <div class="row">
-        <p>Recuerda que aqui podras escanear los codigos QR de los interesados del evento. Una vez escaneado el codigo quedara INVALIDADO. </p>
+        <h1> Panel de ayuda </h1>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <p>Aqui podras iniciar el escaner. Recuerda validar la informacion que aparece.</p>
-            <button type="button"  href="escaner.php" class="btn btn-primary">Escaner QR</button>
+            <h4>Para el escaner </h4>
+            <p>En las opciones </p>
+            <button type="button"  href="#" class="btn btn-primary">Escaner QR</button>
         </div>
         <div class="col-md-6">
             <p> Podras encontrar una guia rapida de como usar la app.</p>
-            <button type="button"  href="ayuda.php" class="btn btn-primary">Ayuda</button>
+            <button type="button"  href="#" class="btn btn-primary">Ayuda</button>
         </div>
     </div>
 
