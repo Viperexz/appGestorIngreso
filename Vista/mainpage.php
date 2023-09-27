@@ -1,5 +1,5 @@
 <?php
-/*
+
 if (!isset($_SESSION['usuario'])) {
     // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
     $mensaje = "Debe iniciar sesión para acceder a esta página.";
@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 // Comprobar si la variable de sesión 'usuario' está definida
 if (isset($_SESSION['usuario'])) {
     $usuario = $_SESSION['usuario'];
-}*/
+}
 ?>
 
 

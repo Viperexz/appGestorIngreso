@@ -24,8 +24,9 @@ class clsLogin
             header("Location: mainpage.php");
             exit();
         } else {
-            // La autenticación falló
-            return false;
+            // La autenticación falló, puedes mostrar un mensaje de error.
+            $mensajeError = "Autenticación fallida. Por favor, inténtalo de nuevo.";
+            return $mensajeError; // Devuelve el mensaje de error
         }
     }
     public function cerrarConexion()
@@ -43,12 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $autenticacion = new clsLogin();
 
     // Intenta autenticar al usuario
-    if ($autenticacion->Autenticacion($username, $password)) {
-        // La autenticación es exitosa, el usuario está autenticado y la variable de sesión se ha establecido.
-    } else {
-        // La autenticación falló, puedes mostrar un mensaje de error.
-        echo "Autenticación fallida. Por favor, inténtalo de nuevo.";
+    $resultadoAutenticacion = $autenticacion->Autenticacion($username, $password);
+
+    if (is_string($resultadoAutenticacion)) {
+        // La autenticación falló, muestra el mensaje de error en la misma página
+        echo $resultadoAutenticacion;
     }
+
     // Cierra la conexión con la base de datos
     $autenticacion->cerrarConexion();
 }
