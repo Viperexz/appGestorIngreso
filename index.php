@@ -192,6 +192,7 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
 
 
 </div>
+
 </body>
 </html>
 
