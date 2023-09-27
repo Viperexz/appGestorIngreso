@@ -23,7 +23,7 @@ if (!isset($_SESSION['username'])) {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <!-- Nombre de la aplicación a la izquierda -->
-        <a class="navbar-brand" href="#">Gestion de ingreso - <?php echo isset($_SESSION['usuario']) ?></a>
+        <a class="navbar-brand" href="#">Gestion de ingreso - <?php echo isset($_SESSION['username']) ?></a>
 
         <!-- Botón desplegable en dispositivos móviles -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
