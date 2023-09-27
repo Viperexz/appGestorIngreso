@@ -21,7 +21,7 @@ class clsLogin
     {
         $Usuario = $this->conexion->real_escape_string($username);
         $Contra = $this->conexion->real_escape_string($password);
-        $consulta = "SELECT * FROM administrador WHERE admUsuario = '$Usuario' AND admContrasena = '$Contra'";
+        $consulta = "SELECT * FROM administrador WHERE admusuario = '$Usuario' AND admcontrasena = '$Contra'";
         $resultados = $this->manejoDatos->consultar($consulta);
 
         if (count($resultados) === 1) {
