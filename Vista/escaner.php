@@ -94,9 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
 }
-
-
-
 ?>
 
 
@@ -154,6 +151,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <b>Detected QR code: </b>
                         <span id="cam-qr-result">None</span>
                         <br>
+                        <?php
+                        // Verificar si la variable $parNombre está definida y no está vacía
+                        if (isset($parNombre) && !empty($parNombre)) {
+                            echo "<p>Nombre del participante: " . $parNombre . "</p>";
+                        } else {
+                            echo "<p>No se encontró el nombre del participante.</p>";
+                        }
+                        ?>
+
                         </p>
                     </div>
                     <!-- Segunda columna -->
