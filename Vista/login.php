@@ -9,11 +9,13 @@ class clsLogin
     public function __construct()
     {
         $this->manejoDatos = new \Controlador\clsManejoDatos();
+        $this->conexion = $this->manejoDatos->getConexion();
     }
     public function Autenticacion($username, $password)
     {
-        // Realiza la autenticación aquí
-        $consulta = "SELECT * FROM administrador WHERE admUsuario = '$username' AND admContrasena = '$password'";
+        $Usuario = $this->conexion->real_escape_string($username);
+        $Contra = $this->conexion->real_escape_string($password);
+        $consulta = "SELECT * FROM administrador WHERE admUsuario = '$Usuario' AND admContrasena = '$Contra'";
         $resultados = $this->manejoDatos->consultar($consulta);
 
         if (count($resultados) === 1) {
@@ -24,8 +26,10 @@ class clsLogin
             header("Location: mainpage.php");
             exit();
         } else {
+
             // La autenticación falló, puedes mostrar un mensaje de error.
             $mensajeError = "Autenticación fallida. Por favor, inténtalo de nuevo.";
+            header("Location: login.php?mensaje=error");
             return $mensajeError; // Devuelve el mensaje de error
         }
     }
