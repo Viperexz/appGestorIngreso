@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 if (!isset($_SESSION['username'])) {
     // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
     $mensaje = "Debe iniciar sesión para acceder a esta página.";

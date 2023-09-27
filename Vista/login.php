@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (is_string($resultadoAutenticacion)) {
         // La autenticación falló, muestra el mensaje de error en la misma página
         echo $resultadoAutenticacion;
+
     }
 
     // Cierra la conexión con la base de datos
