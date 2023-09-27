@@ -28,7 +28,7 @@ class clsVerificarQr
         $cedula = $this->conexion->real_escape_string($cedula);
 
         // Consulta SQL para obtener el valor de qrValido
-        $sql = "SELECT qrValido FROM participante WHERE parCedula = '$cedula'";
+        $sql = "SELECT * FROM participante WHERE parCedula = '$cedula'";
 
         // Realizamos la consulta
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
@@ -37,12 +37,13 @@ class clsVerificarQr
             // Comprobamos si se obtuvo algún resultado de la consulta
             if (count($resultadoConsulta) > 0) {
                 // Obtenemos el valor de qrValido desde el primer resultado
-                $qrValido = $resultadoConsulta[0]['qrValido'];
-
+                $qrValido = $resultadoConsulta[0]['qrvalido'];
+                $parNombre = $resultadoConsulta[1]['parnombre'];
                 // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
                     actualizarCodigo($cedula);
                     echo "Se encontro la cedula";
+                    echo $parNombre;
                     exit;
 
                 } elseif ($qrValido == 0) {
