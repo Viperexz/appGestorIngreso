@@ -85,14 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['qrResult'])) {
         $qrResult = $_POST['qrResult'];
         $consultSql = new clsVerificarQr();
-        $consultSql -> consultarSql($qrResult);
-    } else {
-        echo "No se recibieron datos válidos.";
+        while (true == true)
+        {
+            $consultSql -> consultarSql($qrResult);
+        }
+
     }
-} else {
-    echo "Método de solicitud no válido.";
-
-
 }
 
 
