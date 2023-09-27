@@ -79,13 +79,10 @@ class clsVerificarQr
         }
     }
 }
-while(true===true)
-{
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrResult'])) {
         $qrResult = $_POST['qrResult'];
         $consultSql = new clsVerificarQr();
         $consultSql->consultarSql($qrResult);
-    }
 }
 
 ?>
