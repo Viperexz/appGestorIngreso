@@ -42,22 +42,16 @@ class clsVerificarQr
                 // Obtenemos el valor de qrValido desde el primer resultado
                 $qrValido = (int)$resultadoConsulta[0]["qrvalido"];
                 $parNombre = $resultadoConsulta[0]["parnombre"];
-
-                echo '<div class="alert alert-danger"> El QR pertenece a: ' . $parNombre . ' y su estado es: ' . $qrValido . '</div>';                // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
                     $this->actualizarCodigo($cedula,$parNombre);
                     exit;
                 } elseif ($qrValido == 0) {
                     header("Location: escaner.php?mensaje=error");
                 } else {
-                    // qrValido tiene un valor diferente de 0 y 1
-                    // Puedes manejar otras condiciones aquí si es necesario
+                    header("Location: escaner.php?mensaje=error");
                 }
             } else {
-                // No se encontró ningún registro con la cédula dada
-                // Puedes manejar esta situación de acuerdo a tus requerimientos
-                echo "No se encontró ningún registro con la cédula proporcionada.";
-                exit;
+                header("Location: escaner.php?mensaje=error");
             }
     }
 
