@@ -21,23 +21,17 @@ class clsVerificarQr
 
     public function consultarSql($prmCedula)
     {
-        // Escapamos la cédula para evitar posibles inyecciones SQL
         $cedula = $this->conexion->real_escape_string($prmCedula);
-
-        // Consulta SQL para obtener el valor de qrValido
         $sql = "SELECT * FROM participante WHERE parcedula = '$cedula'";
-
         // Realizamos la consulta
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
 
-        if ($resultadoConsulta) {
-            // Comprobamos si se obtuvo algún resultado de la consulta
             if (count($resultadoConsulta) > 0) {
                 // Obtenemos el valor de qrValido desde el primer resultado
-                $qrValido = $resultadoConsulta[0]['qrvalido'];
-                $parNombre = $resultadoConsulta[0]['parnombre']; // Cambio aquí para obtener el nombre del primer resultado
+                $qrValido = $resultadoConsulta[7]['qrvalido'];
+                $parNombre = $resultadoConsulta[1]['parnombre']; // Cambio aquí para obtener el nombre del primer resultado
                 // Verificamos si qrValido es igual a 1 o 0
-                if ($qrValido == 1) {
+                if ($qrValido != null) {
                     //$this->actualizarCodigo($cedula);
                     echo "Se encontró la cédula";
                     echo $parNombre;
@@ -55,10 +49,6 @@ class clsVerificarQr
                 echo "No se encontró ningún registro con la cédula proporcionada.";
                 exit;
             }
-        } else {
-            // Hubo un error en la consulta SQL
-            die("Error en la consulta: " . $this->conexion->error);
-        }
     }
 
     public function actualizarCodigo($cedula)
