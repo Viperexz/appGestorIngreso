@@ -19,13 +19,13 @@ class clsVerificarQr
         $this->conexion = $this->manejoDatos->getConexion();
     }
 
-    public function consultarSql($cedula)
+    public function consultarSql($prmCedula)
     {
         // Escapamos la cédula para evitar posibles inyecciones SQL
-        $cedula = $this->conexion->real_escape_string($cedula);
+        $cedula = $this->conexion->real_escape_string($prmCedula);
 
         // Consulta SQL para obtener el valor de qrValido
-        $sql = "SELECT * FROM participante WHERE parCedula = '$cedula'";
+        $sql = "SELECT * FROM participante WHERE parcedula = '$cedula'";
 
         // Realizamos la consulta
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
@@ -139,7 +139,7 @@ class clsVerificarQr
                             <video id="qr-video" style="max-width: 100%;" playsinline></video>
                         </div>
 
-                        <b>Detected QR code: </b>
+                        <b>Cedula consultada.</b>
                         <span id="cam-qr-result">None</span>
                         <form id="miFormulario" action="" method="POST">
                             <input type="text" id="input-dato" name="input-dato">
@@ -172,11 +172,6 @@ class clsVerificarQr
         label.textContent = result.data;
         inputElement.value = result.data;
     }
-
-    // Resto de tu código (Web Cam Scanning) sigue igual...
-
-    // ####### Web Cam Scanning #######
-
     const scanner = new QrScanner(video, result => setResult(camQrResult,txtCedula,result), {
         onDecodeError: error => {
             camQrResult.textContent = error;
