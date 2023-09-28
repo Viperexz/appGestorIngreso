@@ -17,8 +17,8 @@ $cedula = $this->conexion->real_escape_string($cedula);
 $fechaNacimiento = $this->conexion->real_escape_string($fechaNacimiento);
 $correo = $this->conexion->real_escape_string($correo);
 $telefono = $this->conexion->real_escape_string($telefono);
-$universidad = $this->conexion->real_escape_string($universidad);
-$sql = "INSERT INTO participante VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$universidad','$genero',TRUE)";
+$suniversidad = $this->conexion->real_escape_string($universidad);
+$sql = "INSERT INTO participante VALUES ('$cedula', '$nombre $apellidos', '$fechaNacimiento', '$telefono', '$correo','$suniversidad','$genero',TRUE)";
 
 if ($this->manejoDatos->ejecutar($sql)) {
 // Registro exitoso, redirige a la página anterior con un mensaje de éxito
