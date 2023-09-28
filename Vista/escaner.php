@@ -22,7 +22,7 @@ class clsVerificarQr
     public function consultarSql($prmCedula)
     {
         $cedula = $this->conexion->real_escape_string($prmCedula);
-        $sql = "SELECT * FROM participante WHERE parcedula = '$cedula'";
+        $sql = "SELECT parnombre,qrvalido FROM participante WHERE parcedula = '$cedula'";
         // Realizamos la consulta
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
         var_dump($resultadoConsulta);
