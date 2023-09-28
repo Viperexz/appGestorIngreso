@@ -9,6 +9,12 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
     echo '<div class="alert alert-danger">Debe iniciar sesión para acceder a esta página.</div>';
 }
+
+if (isset($_GET['Nombre'])) {
+    $nombre = $_GET['Nombre'];
+
+}
+
 class clsLogin
 {
     private $manejoDatos;

@@ -7,6 +7,17 @@ if (!isset($_SESSION['username'])) {
     exit; // Añade esta línea para evitar que el código se ejecute más allá de este punto
 }
 
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
+    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
+    echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
+}
+
+if (isset($_GET['Nombre'])) {
+    $nombre = $_GET['Nombre'];
+    // Muestra el mensaje de éxito aquí con un identificador único
+    echo '<div id="exitoAlert" class="alert alert-success">El código se validó exitosamente, bienvenido ' . $nombre . '</div>';
+}
+
 require_once '../Controlador/clsManejoDatos.php';
 
 class clsVerificarQr
@@ -29,17 +40,15 @@ class clsVerificarQr
 
             if (count($resultadoConsulta) > 0) {
                 // Obtenemos el valor de qrValido desde el primer resultado
-                $qrValido = $resultadoConsulta[0]["qrvalido"];
+                $qrValido = (int)$resultadoConsulta[0]["qrvalido"];
                 $parNombre = $resultadoConsulta[0]["parnombre"];
-                echo '<div class="alert alert-danger"> El QR pertenece a: ' . $parNombre . ' y su estado es: ' . $qrvalido . '</div>';                // Verificamos si qrValido es igual a 1 o 0
+
+                echo '<div class="alert alert-danger"> El QR pertenece a: ' . $parNombre . ' y su estado es: ' . $qrValido . '</div>';                // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
-                    //$this->actualizarCodigo($cedula);
-                    echo "Se encontró la cédula";
-                    echo $parNombre;
+                    $this->actualizarCodigo($cedula);
                     exit;
                 } elseif ($qrValido == 0) {
-                    echo "El código QR no es válido.";
-                    exit;
+                    header("Location: escaner.php?mensaje=error");
                 } else {
                     // qrValido tiene un valor diferente de 0 y 1
                     // Puedes manejar otras condiciones aquí si es necesario
@@ -52,7 +61,7 @@ class clsVerificarQr
             }
     }
 
-    public function actualizarCodigo($cedula)
+    public function actualizarCodigo($cedula,$prmNombre)
     {
         // Escapamos la cédula para evitar posibles inyecciones SQL
         $cedula = $this->conexion->real_escape_string($cedula);
@@ -63,7 +72,7 @@ class clsVerificarQr
         // Ejecutamos la consulta de actualización
         if ($this->manejoDatos->consultar($sql)) {
             // La actualización se realizó con éxito
-            echo "Valor de qrValido actualizado a 0 correctamente.";
+            header("Location: login.php?mensaje=UsuarioValidado&Nombre=$prmNombre");
         } else {
             // Hubo un error en la consulta SQL de actualización
             die("Error en la consulta: " . $this->conexion->error);
@@ -136,7 +145,15 @@ class clsVerificarQr
                             <input type="text" id="input-dato" name="input-dato">
                             <input type="submit" value="Confirmar Cedula.">
                         </form>
+
                         </p>
+
+                        <div id="ventanaEmergente" class="modal">
+                            <div class="modal-contenido">
+                                <span class="cerrar" id="cerrarVentanaEmergente">&times;</span>
+                                <div id="errorAlertContent"></div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Segunda columna -->
                 </div>
@@ -200,6 +217,43 @@ class clsVerificarQr
         label.parentNode.insertBefore(scanner.$canvas, label.nextSibling);
         scanner.$canvas.style.display = input.checked ? 'block' : 'none';
     });
+    function mostrarMensajeEnVentanaEmergente(mensaje) {
+        var ventanaEmergente = document.getElementById('ventanaEmergente');
+        var mensajeAlertContent = document.getElementById('mensajeAlertContent');
+
+        mensajeAlertContent.innerHTML = mensaje;
+        ventanaEmergente.style.display = 'block';
+    }
+
+    // Verificar si existe el elemento de error en la página
+    var errorAlert = document.getElementById('errorAlert');
+    if (errorAlert) {
+        // Obtener el contenido del elemento de error
+        var errorContent = errorAlert.innerHTML;
+
+        // Mostrar el mensaje de error en la ventana emergente
+        mostrarMensajeEnVentanaEmergente(errorContent);
+    }
+
+    // Verificar si existe el elemento de éxito en la página
+    var exitoAlert = document.getElementById('exitoAlert');
+    if (exitoAlert) {
+        // Obtener el contenido del elemento de éxito
+        var exitoContent = exitoAlert.innerHTML;
+
+        // Mostrar el mensaje de éxito en la ventana emergente
+        mostrarMensajeEnVentanaEmergente(exitoContent);
+    }
+
+    // Cerrar la ventana emergente al hacer clic en el botón de cerrar
+    var cerrarVentanaEmergente = document.getElementById('cerrarVentanaEmergente');
+    cerrarVentanaEmergente.addEventListener('click', function() {
+        ventanaEmergente.style.display = 'none';
+    });
+
+    // Cerrar la ventana emergente al hacer clic en el botón de cerrar
+
+
 
 </script>
 
