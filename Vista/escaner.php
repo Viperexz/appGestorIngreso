@@ -170,8 +170,8 @@ class clsVerificarQr
     const camHasCamera = document.getElementById('cam-has-camera');
     const camQrResult = document.getElementById('cam-qr-result');
     const camList = document.getElementById('environment');
+    let scanningActive = true;
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
-      /**
     function sendData(result)
     {
         $.ajax({
@@ -191,13 +191,19 @@ class clsVerificarQr
             }
         });
     }
-    }**/
-
-    function setResult(label,result) {
-        console.log(result.data);
-        label.textContent = result.data;
-        sendData(result);
     }
+
+      function setResult(label, result) {
+          console.log(result.data);
+          if (scanningActive) {
+              // Realizar acciones adicionales solo si el escaneo está activo
+              sendData(result);
+              label.textContent = result.data;
+              // Detener el escaneo después de procesar el primer resultado
+              scanningActive = false;
+              scanner.stop();
+          }
+      }
 
     // ####### Web Cam Scanning #######
 
