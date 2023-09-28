@@ -1,7 +1,7 @@
 <?php
 
 namespace Modelo;
-require_once '../Controlador/clsManejoDatos.php';
+require_once 'clsManejoDatos.php';
 
 class clsVerificarQr
 {

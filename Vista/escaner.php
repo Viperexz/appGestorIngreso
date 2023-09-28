@@ -176,7 +176,7 @@ class clsVerificarQr
     {
         $.ajax({
             type: "POST",
-            url: "../Modelo/clsVerificarQr.php", // Reemplaza con la ruta correcta a tu script PHP
+            url: "../Controlador/clsVerificarQr.php", // Reemplaza con la ruta correcta a tu script PHP
             data: { accion: '', qrResult: result.data },
             success: function (respuesta) {
                 // Manejar la respuesta del servidor (puede ser la respuesta de consultaSQL())
