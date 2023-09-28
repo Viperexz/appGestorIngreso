@@ -197,17 +197,11 @@ class clsVerificarQr
         if (result && result.data) {
             console.log(result.data);
             label.textContent = result.data;
-
-            if (scanningActive) {
-                // Realizar acciones adicionales solo si el escaneo está activo
-                sendData(result);
-
-                // Detener el escaneo después de procesar el primer resultado
-                scanningActive = false;
-                scanner.stop();
-            }
-        } else {
-            console.log("No se detectó información válida en el resultado.");
+            // Realizar acciones adicionales solo si el escaneo está activo
+            sendData(result);
+            // Detener el escaneo después de procesar el primer resultado
+            scanningActive = false;
+            scanner.stop();
         }
     }
 
