@@ -171,7 +171,7 @@ class clsVerificarQr
     const camQrResult = document.getElementById('cam-qr-result');
     const camList = document.getElementById('environment');
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
-
+      /**
     function sendData(result)
     {
         $.ajax({
@@ -191,7 +191,7 @@ class clsVerificarQr
             }
         });
     }
-    }
+    }**/
 
     function setResult(label,result) {
         console.log(result.data);
