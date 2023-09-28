@@ -144,15 +144,15 @@ $registrador->registrar($nombre, $apellidos, $cedula, $fechaNacimiento, $correo,
         <div class="form-group" id="universidadesDropdown" style="display: none;">
             <label for="universidadSelect">Cual?</label>
             <select class="form-control" id="universidadSelect" name="universidadSelect">
-            <option value="universidad1">Unicauca</option>
-                <option value="universidad2">Unicomfacauca</option>
-                <option value="universidad3">Unversidad Cooperativa</option>
-                <option value="universidad3">Fundacion universitaria de Popayan</option>
-                <option value="universidad3">Remigton</option>
-                <option value="universidad3">Colegio Mayor</option>
-                <option value="universidad3">Universidad Antonio Nariño</option>
-                <option value="universidad3">Unversidad Autonoma</option>
-                <option value="universidad3">Sena</option>
+            <option value="Unicauca">Unicauca</option>
+                <option value="Unicomfacauca">Unicomfacauca</option>
+                <option value="Unversidad Cooperativa">Unversidad Cooperativa</option>
+                <option value="Fundacion universitaria de Popayan">Fundacion universitaria de Popayan</option>
+                <option value="Remigton">Remigton</option>
+                <option value="Colegio Mayor">Colegio Mayor</option>
+                <option value="Universidad Antonio Nariño">Universidad Antonio Nariño</option>
+                <option value="Unversidad Autonoma<">Unversidad Autonoma</option>
+                <option value="Sena">Sena</option>
             </select>
         </div>
         <div class="clearfix"></div>
