@@ -28,7 +28,6 @@ if (isset($_GET['Nombre']) && $_GET['mensaje'] === 'UsuarioValidado') {
     // Muestra el mensaje de éxito aquí con un identificador único
     echo '<div id="exitoAlert" class="alert alert-success">El código se validó exitosamente, bienvenido ' . $nombre . '</div>';
 }
-
 require_once '../Controlador/clsManejoDatos.php';
 
 class clsVerificarQr
