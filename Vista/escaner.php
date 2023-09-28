@@ -45,7 +45,7 @@ class clsVerificarQr
 
                 echo '<div class="alert alert-danger"> El QR pertenece a: ' . $parNombre . ' y su estado es: ' . $qrValido . '</div>';                // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
-                    $this->actualizarCodigo($cedula);
+                    $this->actualizarCodigo($cedula,$parNombre);
                     exit;
                 } elseif ($qrValido == 0) {
                     header("Location: escaner.php?mensaje=error");
@@ -63,16 +63,12 @@ class clsVerificarQr
 
     public function actualizarCodigo($cedula,$prmNombre)
     {
-        // Escapamos la cédula para evitar posibles inyecciones SQL
-        $cedula = $this->conexion->real_escape_string($cedula);
+        $varCedula = $this->conexion->real_escape_string($cedula);
+        $sql = "UPDATE participante SET qrValido = 0 WHERE parCedula = '$varCedula'";
 
-        // Consulta SQL para actualizar qrValido a 0
-        $sql = "UPDATE participante SET qrValido = 0 WHERE parCedula = '$cedula'";
-
-        // Ejecutamos la consulta de actualización
         if ($this->manejoDatos->consultar($sql)) {
             // La actualización se realizó con éxito
-            header("Location: login.php?mensaje=UsuarioValidado&Nombre=$prmNombre");
+            header("Location: escaner.php?mensaje=UsuarioValidado&Nombre=$prmNombre");
         } else {
             // Hubo un error en la consulta SQL de actualización
             die("Error en la consulta: " . $this->conexion->error);
