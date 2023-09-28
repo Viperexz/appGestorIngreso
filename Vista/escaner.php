@@ -31,7 +31,7 @@ class clsVerificarQr
                 $qrValido = $resultadoConsulta[7]['qrvalido'];
                 $parNombre = $resultadoConsulta[1]['parnombre']; // Cambio aquí para obtener el nombre del primer resultado
                 // Verificamos si qrValido es igual a 1 o 0
-                if ($qrValido != null) {
+                if ($qrValido == 1) {
                     //$this->actualizarCodigo($cedula);
                     echo "Se encontró la cédula";
                     echo $parNombre;
