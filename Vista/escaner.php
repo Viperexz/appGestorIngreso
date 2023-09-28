@@ -42,7 +42,6 @@ class clsVerificarQr
         $sql = "SELECT parnombre,qrvalido FROM participante WHERE parcedula = '$cedula'";
         // Realizamos la consulta
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
-        var_dump($resultadoConsulta);
 
         if (count($resultadoConsulta) > 0) {
             // Obtenemos el valor de qrValido desde el primer resultado
@@ -51,7 +50,7 @@ class clsVerificarQr
             if ($qrValido == "1") {
                 $this->actualizarCodigo($cedula, $parNombre);
                 exit;
-            } elseif ($qrValido == "") {
+            } elseif ($qrValido == "2") {
                 header("Location: escaner.php?mensaje=error1");
             } else {
                 header("Location: escaner.php?mensaje=error");
