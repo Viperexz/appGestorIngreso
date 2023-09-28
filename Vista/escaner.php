@@ -162,9 +162,6 @@ class clsVerificarQr
 </div>
 </body>
 </html>
-
-<!--<script src="../qr-scanner.umd.min.js"></script>-->
-<!--<script src="../qr-scanner.legacy.min.js"></script>-->
 <script type="module">
     import QrScanner from "../qr-scanner-master/qr-scanner.min.js";
 
@@ -178,9 +175,23 @@ class clsVerificarQr
     function setResult(label,result) {
         console.log(result.data);
         label.textContent = result.data;
+        $.ajax({
+            type: "POST",
+            url: "../Modelo/clsVerificarQr.php", // Reemplaza con la ruta correcta a tu script PHP
+            data: { accion: '', qrResult: result.data },
+            success: function (respuesta) {
+                // Manejar la respuesta del servidor (puede ser la respuesta de consultaSQL())
+                console.log("Respuesta desde PHP:", respuesta);
 
-
-
+                // Actualizar el formulario con la respuesta si es necesario
+                // Por ejemplo, puedes mostrar la respuesta en un elemento HTML
+                $('#nombre-participante').text(respuesta);
+            },
+            error: function (error) {
+                console.error("Error de AJAX:", error);
+            }
+        });
+    }
     }
 
     // ####### Web Cam Scanning #######
