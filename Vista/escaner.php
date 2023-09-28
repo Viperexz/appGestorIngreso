@@ -54,7 +54,7 @@ class clsVerificarQr
             if ($qrValido == "1") {
                 $this->actualizarCodigo($cedula, $parNombre);
                 exit;
-            } elseif ($qrValido == "2") {
+            } elseif ($qrValido == "0") {
                 header("Location: escaner.php?mensaje=error1");
             } else {
                 header("Location: escaner.php?mensaje=error");
@@ -67,7 +67,7 @@ class clsVerificarQr
         $varCedula = $this->conexion->real_escape_string($cedula);
         $sql = "UPDATE participante SET qrValido = 0 WHERE parCedula = '$varCedula'";
 
-        if ($this->manejoDatos->consultar($sql)) {
+        if ($this->manejoDatos->ejecutar($sql)) {
             // La actualización se realizó con éxito
             header("Location: escaner.php?mensaje=UsuarioValidado&Nombre=$prmNombre");
         } else {
