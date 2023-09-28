@@ -79,7 +79,7 @@ class clsVerificarQr
         }
     }
 }
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qrResult'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'llamarFuncion' && isset($_POST['qrResult'])) {
         $qrResult = $_POST['qrResult'];
         $consultSql = new clsVerificarQr();
         $consultSql->consultarSql($qrResult);
@@ -178,19 +178,30 @@ class clsVerificarQr
     function setResult(label,result) {
         console.log(result.data);
         label.textContent = result.data;
-        // Envia los datos del escáner QR al archivo PHP actual
-        $.ajax({
-            type: 'POST',
-            url: window.location.href, // Utiliza la URL actual
-            data: { qrResult: result.data }, // Envía el resultado como variable POST
-            success: function (response) {
-                console.log('Respuesta del servidor:', response);
-                // Puedes hacer algo con la respuesta del servidor si es necesario
-            },
-            error: function (error) {
-                console.error('Error al enviar datos al servidor:', error);
+
+        var xhr = new XMLHttpRequest();
+
+        // Configurar la solicitud POST al archivo actual (archivo.php en este caso)
+        xhr.open('POST', 'escaner.php', true);
+
+        // Configurar el encabezado de la solicitud
+        xhr.setRequestHeader('Content-Type', 'escaner.php');
+
+        // Definir una función de devolución de llamada para manejar la respuesta del servidor
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Analizar la respuesta JSON del servidor
+                var respuesta = JSON.parse(xhr.responseText);
+
+                // Mostrar el mensaje en la consola o en algún otro lugar en tu página
+                console.log(respuesta.mensaje);
             }
-        });
+        };
+
+        // Enviar la solicitud POST al servidor con la acción 'llamarFuncion'
+        xhr.send('accion=llamarFuncion');
+    }
+
     }
 
     // ####### Web Cam Scanning #######
