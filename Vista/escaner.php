@@ -163,7 +163,6 @@ class clsVerificarQr
     const camHasCamera = document.getElementById('cam-has-camera');
     const camQrResult = document.getElementById('input-dato');
     const camList = document.getElementById('environment');
-    let scanningActive = true;
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
     }
 
@@ -213,15 +212,6 @@ class clsVerificarQr
         label.parentNode.insertBefore(scanner.$canvas, label.nextSibling);
         scanner.$canvas.style.display = input.checked ? 'block' : 'none';
     });
-
-
-
-    // Supongamos que camQrResult contiene el resultado que deseas mostrar.
-    const resultado = camQrResult.textContent;
-
-    // Abre una ventana emergente con el resultado
-    const popupWindow = window.open('', '_blank', 'width=400,height=200');
-    popupWindow.document.write('<p>' + resultado + '</p>');
 
 </script>
 
