@@ -59,8 +59,6 @@ class clsVerificarQr
             } else {
                 header("Location: escaner.php?mensaje=error");
             }
-        } else {
-            header("Location: escaner.php?mensaje=error");
         }
     }
 
