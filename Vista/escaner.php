@@ -25,6 +25,7 @@ class clsVerificarQr
         $sql = "SELECT * FROM participante WHERE parcedula = '$cedula'";
         // Realizamos la consulta
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
+        var_dump($resultadoConsulta);
 
             if (count($resultadoConsulta) > 0) {
                 // Obtenemos el valor de qrValido desde el primer resultado
