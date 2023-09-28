@@ -164,11 +164,11 @@ class clsVerificarQr
     const camQrResult = document.getElementById('input-dato');
     const camList = document.getElementById('environment');
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
-    }
+
 
     function setResult(label, result) {
         console.log(result.data);
-        //label.textContent = result.data;
+     label.textContent = result.data;
     }
 
     // Resto de tu código (Web Cam Scanning) sigue igual...
