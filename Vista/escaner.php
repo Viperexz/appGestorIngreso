@@ -26,7 +26,7 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error1') {
 if (isset($_GET['Nombre']) && $_GET['mensaje'] === 'UsuarioValidado') {
     $nombre = $_GET['Nombre'];
     // Muestra el mensaje de éxito aquí con un identificador único
-    echo '<div id="exitoAlert" class="alert alert-success">El código se validó exitosamente, bienvenido ' . $nombre . '</div>';
+    echo '<div id="exitoAlert" class="alert alert-success">El código se validó exitosamente. Bienvenido ' . $nombre . '</div>';
 }
 require_once '../Controlador/clsManejoDatos.php';
 
