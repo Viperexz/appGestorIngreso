@@ -172,9 +172,8 @@ class clsVerificarQr
     const camList = document.getElementById('environment');
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
 
-    function setResult(label,result) {
-        console.log(result.data);
-        label.textContent = result.data;
+    function sendData(result)
+    {
         $.ajax({
             type: "POST",
             url: "../Modelo/clsVerificarQr.php", // Reemplaza con la ruta correcta a tu script PHP
@@ -192,6 +191,12 @@ class clsVerificarQr
             }
         });
     }
+    }
+
+    function setResult(label,result) {
+        console.log(result.data);
+        label.textContent = result.data;
+        sendData(result);
     }
 
     // ####### Web Cam Scanning #######
