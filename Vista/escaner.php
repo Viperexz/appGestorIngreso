@@ -161,21 +161,23 @@ class clsVerificarQr
     const video = document.getElementById('qr-video');
     const videoContainer = document.getElementById('video-container');
     const camHasCamera = document.getElementById('cam-has-camera');
-    const camQrResult = document.getElementById('input-dato');
+    const camQrResult = document.getElementById('cam-qr-result');
+    const txtCedula = document.getElementById('input-dato');
     const camList = document.getElementById('environment');
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
 
 
-    function setResult(label, result) {
+    function setResult(label,inputElement,result) {
         console.log(result.data);
-     label.textContent = result.data;
+        label.textContent = result.data;
+        inputElement.value = result.data;
     }
 
     // Resto de tu código (Web Cam Scanning) sigue igual...
 
     // ####### Web Cam Scanning #######
 
-    const scanner = new QrScanner(video, result => setResult(camQrResult,result), {
+    const scanner = new QrScanner(video, result => setResult(camQrResult,txtCedula,result), {
         onDecodeError: error => {
             camQrResult.textContent = error;
             camQrResult.style.color = 'inherit';
