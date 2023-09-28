@@ -179,28 +179,7 @@ class clsVerificarQr
         console.log(result.data);
         label.textContent = result.data;
 
-        var xhr = new XMLHttpRequest();
 
-        // Configurar la solicitud POST al archivo actual (archivo.php en este caso)
-        xhr.open('POST', 'escaner.php', true);
-
-        // Configurar el encabezado de la solicitud
-        xhr.setRequestHeader('Content-Type', 'escaner.php');
-
-        // Definir una función de devolución de llamada para manejar la respuesta del servidor
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Analizar la respuesta JSON del servidor
-                var respuesta = JSON.parse(xhr.responseText);
-
-                // Mostrar el mensaje en la consola o en algún otro lugar en tu página
-                console.log(respuesta.mensaje);
-            }
-        };
-
-        // Enviar la solicitud POST al servidor con la acción 'llamarFuncion'
-        xhr.send('accion=llamarFuncion');
-    }
 
     }
 
