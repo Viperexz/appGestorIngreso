@@ -145,18 +145,6 @@ class clsVerificarQr
                             <input type="text" id="input-dato" name="input-dato">
                             <input type="submit" value="Confirmar Cedula.">
                         </form>
-
-                        <p id="nombre-participante">
-                            <?php
-                            // Verificar si la variable $parNombre está definida y no está vacía
-                            if (isset($parNombre) && !empty($parNombre)) {
-                                echo "Nombre del participante: " . $parNombre;
-                            } else {
-                                echo "No se encontró el nombre del participante.";
-                            }
-                            ?>
-                        </p>
-
                         </p>
                     </div>
                     <!-- Segunda columna -->
@@ -181,7 +169,7 @@ class clsVerificarQr
 
     function setResult(label, result) {
         console.log(result.data);
-        label.textContent = result.data;
+        //label.textContent = result.data;
     }
 
     // Resto de tu código (Web Cam Scanning) sigue igual...
