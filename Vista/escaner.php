@@ -12,13 +12,18 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
 }
 
-if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error2') {
+    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
+    echo '<div class="alert alert-danger">Error al actualizar</div>';
+}
+
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error1') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
     echo '<div class="alert alert-danger">Codigo no valido </div>';
 }
 
 
-if (isset($_GET['Nombre'])) {
+if (isset($_GET['Nombre']) && $_GET['mensaje'] === 'UsuarioValidado') {
     $nombre = $_GET['Nombre'];
     // Muestra el mensaje de éxito aquí con un identificador único
     echo '<div id="exitoAlert" class="alert alert-success">El código se validó exitosamente, bienvenido ' . $nombre . '</div>';
@@ -69,8 +74,7 @@ class clsVerificarQr
             // La actualización se realizó con éxito
             header("Location: escaner.php?mensaje=UsuarioValidado&Nombre=$prmNombre");
         } else {
-            // Hubo un error en la consulta SQL de actualización
-            die("Error en la consulta: " . $this->conexion->error);
+            header("Location: escaner.php?mensaje=error2");
         }
     }
 }
