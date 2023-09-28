@@ -29,8 +29,8 @@ class clsVerificarQr
 
             if (count($resultadoConsulta) > 0) {
                 // Obtenemos el valor de qrValido desde el primer resultado
-                $qrValido = $resultadoConsulta['qrvalido'];
-                $parNombre = $resultadoConsulta['parnombre'];
+                $qrValido = $resultadoConsulta[1];
+                $parNombre = $resultadoConsulta[0];
                 echo '<div class="alert alert-danger"> El QR pertenece a: ' . $parNombre . ' y su estado es: ' . $qrvalido . '</div>';                // Verificamos si qrValido es igual a 1 o 0
                 if ($qrValido == 1) {
                     //$this->actualizarCodigo($cedula);
