@@ -12,6 +12,12 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
 }
 
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
+    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
+    echo '<div class="alert alert-danger">Codigo no valido </div>';
+}
+
+
 if (isset($_GET['Nombre'])) {
     $nombre = $_GET['Nombre'];
     // Muestra el mensaje de éxito aquí con un identificador único
@@ -38,24 +44,24 @@ class clsVerificarQr
         $resultadoConsulta = $this->manejoDatos->consultar($sql);
         var_dump($resultadoConsulta);
 
-            if (count($resultadoConsulta) > 0) {
-                // Obtenemos el valor de qrValido desde el primer resultado
-                $qrValido = (int)$resultadoConsulta[0]["qrvalido"];
-                $parNombre = $resultadoConsulta[0]["parnombre"];
-                if ($qrValido == 1) {
-                    $this->actualizarCodigo($cedula,$parNombre);
-                    exit;
-                } elseif ($qrValido == 0) {
-                    header("Location: escaner.php?mensaje=error");
-                } else {
-                    header("Location: escaner.php?mensaje=error");
-                }
+        if (count($resultadoConsulta) > 0) {
+            // Obtenemos el valor de qrValido desde el primer resultado
+            $qrValido = $resultadoConsulta[0]["qrvalido"];
+            $parNombre = $resultadoConsulta[0]["parnombre"];
+            if ($qrValido == "1") {
+                $this->actualizarCodigo($cedula, $parNombre);
+                exit;
+            } elseif ($qrValido == "") {
+                header("Location: escaner.php?mensaje=error1");
             } else {
                 header("Location: escaner.php?mensaje=error");
             }
+        } else {
+            header("Location: escaner.php?mensaje=error");
+        }
     }
 
-    public function actualizarCodigo($cedula,$prmNombre)
+    public function actualizarCodigo($cedula, $prmNombre)
     {
         $varCedula = $this->conexion->real_escape_string($cedula);
         $sql = "UPDATE participante SET qrValido = 0 WHERE parCedula = '$varCedula'";
@@ -69,14 +75,14 @@ class clsVerificarQr
         }
     }
 }
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
-        $qrResult = $_POST['input-dato'];
-        $consultSql = new clsVerificarQr();
-        $consultSql->consultarSql($qrResult);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $qrResult = $_POST['input-dato'];
+    $consultSql = new clsVerificarQr();
+    $consultSql->consultarSql($qrResult);
 }
 
 ?>
-
 
 
 <!DOCTYPE html>
@@ -118,38 +124,38 @@ class clsVerificarQr
         </div>
     </div>
 </nav>
-        <main class="col bg-faded py-3 flex-grow-1">
-            <h2>Escaner: </h2>
-            <div class="container">
-                <div class="row">
-                    <!-- Primera columna -->
-                    <div class="col-md-6">
-                        <p>
-                        <div id="video-container">
-                            <video id="qr-video" style="max-width: 100%;" playsinline></video>
-                        </div>
+<main class="col bg-faded py-3 flex-grow-1">
+    <h2>Escaner: </h2>
+    <div class="container">
+        <div class="row">
+            <!-- Primera columna -->
+            <div class="col-md-6">
+                <p>
+                <div id="video-container">
+                    <video id="qr-video" style="max-width: 100%;" playsinline></video>
+                </div>
 
-                        <b>Cedula consultada.</b>
-                        <span id="cam-qr-result">None</span>
-                        <form id="miFormulario" action="" method="POST">
-                            <input type="text" id="input-dato" name="input-dato">
-                            <input type="submit" value="Confirmar Cedula.">
-                        </form>
+                <b>Cedula consultada.</b>
+                <span id="cam-qr-result">None</span>
+                <form id="miFormulario" action="" method="POST">
+                    <input type="text" id="input-dato" name="input-dato">
+                    <input type="submit" value="Confirmar Cedula.">
+                </form>
 
-                        </p>
+                </p>
 
-                        <div id="ventanaEmergente" class="modal">
-                            <div class="modal-contenido">
-                                <span class="cerrar" id="cerrarVentanaEmergente">&times;</span>
-                                <div id="errorAlertContent"></div>
-                            </div>
-                        </div>
+                <div id="ventanaEmergente" class="modal">
+                    <div class="modal-contenido">
+                        <span class="cerrar" id="cerrarVentanaEmergente">&times;</span>
+                        <div id="errorAlertContent"></div>
                     </div>
-                    <!-- Segunda columna -->
                 </div>
             </div>
-        </main>
+            <!-- Segunda columna -->
+        </div>
     </div>
+</main>
+</div>
 </div>
 </body>
 </html>
@@ -165,12 +171,13 @@ class clsVerificarQr
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
 
 
-    function setResult(label,inputElement,result) {
+    function setResult(label, inputElement, result) {
         console.log(result.data);
         label.textContent = result.data;
         inputElement.value = result.data;
     }
-    const scanner = new QrScanner(video, result => setResult(camQrResult,txtCedula,result), {
+
+    const scanner = new QrScanner(video, result => setResult(camQrResult, txtCedula, result), {
         onDecodeError: error => {
             camQrResult.textContent = error;
             camQrResult.style.color = 'inherit';
@@ -207,6 +214,7 @@ class clsVerificarQr
         label.parentNode.insertBefore(scanner.$canvas, label.nextSibling);
         scanner.$canvas.style.display = input.checked ? 'block' : 'none';
     });
+
     function mostrarMensajeEnVentanaEmergente(mensaje) {
         var ventanaEmergente = document.getElementById('ventanaEmergente');
         var mensajeAlertContent = document.getElementById('mensajeAlertContent');
@@ -237,12 +245,11 @@ class clsVerificarQr
 
     // Cerrar la ventana emergente al hacer clic en el botón de cerrar
     var cerrarVentanaEmergente = document.getElementById('cerrarVentanaEmergente');
-    cerrarVentanaEmergente.addEventListener('click', function() {
+    cerrarVentanaEmergente.addEventListener('click', function () {
         ventanaEmergente.style.display = 'none';
     });
 
     // Cerrar la ventana emergente al hacer clic en el botón de cerrar
-
 
 
 </script>
@@ -267,13 +274,16 @@ class clsVerificarQr
         height: max-content;
         overflow: hidden;
     }
+
     #video-container.example-style-2 .scan-region-highlight {
         border-radius: 30px;
         outline: rgba(0, 0, 0, .25) solid 50vmax;
     }
+
     #video-container.example-style-2 .scan-region-highlight-svg {
         display: none;
     }
+
     #video-container.example-style-2 .code-outline-highlight {
         stroke: rgba(255, 255, 255, .5) !important;
         stroke-width: 15 !important;
@@ -287,6 +297,7 @@ class clsVerificarQr
     hr {
         margin-top: 32px;
     }
+
     input[type="file"] {
         display: block;
         margin-bottom: 16px;
