@@ -79,8 +79,8 @@ class clsVerificarQr
         }
     }
 }
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['accion'] === 'llamarFuncion' && isset($_POST['qrResult'])) {
-        $qrResult = $_POST['qrResult'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
+        $qrResult = $_POST['input-dato'];
         $consultSql = new clsVerificarQr();
         $consultSql->consultarSql($qrResult);
 }
@@ -141,6 +141,11 @@ class clsVerificarQr
 
                         <b>Detected QR code: </b>
                         <span id="cam-qr-result">None</span>
+                        <form id="miFormulario" action="" method="POST">
+                            <input type="text" id="input-dato" name="input-dato">
+                            <input type="submit" value="Confirmar Cedula.">
+                        </form>
+
                         <p id="nombre-participante">
                             <?php
                             // Verificar si la variable $parNombre está definida y no está vacía
@@ -168,41 +173,15 @@ class clsVerificarQr
     const video = document.getElementById('qr-video');
     const videoContainer = document.getElementById('video-container');
     const camHasCamera = document.getElementById('cam-has-camera');
-    const camQrResult = document.getElementById('cam-qr-result');
+    const camQrResult = document.getElementById('input-dato');
     const camList = document.getElementById('environment');
     let scanningActive = true;
     const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
-    function sendData(result)
-    {
-        $.ajax({
-            type: "POST",
-            url: "../Controlador/clsVerificarQr.php", // Reemplaza con la ruta correcta a tu script PHP
-            data: { accion: '', qrResult: result.data },
-            success: function (respuesta) {
-                // Manejar la respuesta del servidor (puede ser la respuesta de consultaSQL())
-                console.log("Respuesta desde PHP:", respuesta);
-
-                // Actualizar el formulario con la respuesta si es necesario
-                // Por ejemplo, puedes mostrar la respuesta en un elemento HTML
-                $('#nombre-participante').text(respuesta);
-            },
-            error: function (error) {
-                console.error("Error de AJAX:", error);
-            }
-        });
-    }
     }
 
     function setResult(label, result) {
-        if (result && result.data) {
-            console.log(result.data);
-            label.textContent = result.data;
-            // Realizar acciones adicionales solo si el escaneo está activo
-            sendData(result);
-            // Detener el escaneo después de procesar el primer resultado
-            scanningActive = false;
-            scanner.stop();
-        }
+        console.log(result.data);
+        label.textContent = result.data;
     }
 
     // Resto de tu código (Web Cam Scanning) sigue igual...
@@ -236,12 +215,10 @@ class clsVerificarQr
 
     // for debugging
     window.scanner = scanner;
-
     document.getElementById('scan-region-highlight-style-select').addEventListener('change', (e) => {
         videoContainer.className = e.target.value;
         scanner._updateOverlay(); // reposition the highlight because style 2 sets position: relative
     });
-
     document.getElementById('show-scan-region').addEventListener('change', (e) => {
         const input = e.target;
         const label = input.parentNode;
