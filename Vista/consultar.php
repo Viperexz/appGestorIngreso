@@ -1,11 +1,10 @@
 <?php
-/**session_start();
- * if (!isset($_SESSION['username'])) {
- * // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
- * $mensaje = "Debe iniciar sesión para acceder a esta página.";
- * header("Location: login.php?mensaje=error");
- * }**/
-
+session_start();
+  if (!isset($_SESSION['username'])) {
+ // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
+ $mensaje = "Debe iniciar sesión para acceder a esta página.";
+  header("Location: login.php?mensaje=error");
+ }
 if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
     echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
