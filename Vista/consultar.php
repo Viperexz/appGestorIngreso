@@ -10,9 +10,18 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
     echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
 }
+require_once '../Controlador/clsManejoDatos.php';
 
 class clsConsultas
 {
+
+    private $manejoDatos;
+
+    public function __construct()
+    {
+        $this->manejoDatos = new \Controlador\clsManejoDatos();
+        $this->conexion = $this->manejoDatos->getConexion();
+    }
     public function consultarSql($prmCedula)
     {
         $cedula = $this->conexion->real_escape_string($prmCedula);
