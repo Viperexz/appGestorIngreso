@@ -41,7 +41,7 @@ class clsConsultas
             }
         }
         else {
-            header("Location: consular.php?mensaje=error");
+            header("Location: consultar.php?mensaje=error");
         }
     }
 }
