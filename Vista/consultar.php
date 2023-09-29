@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a class="nav-link" href="escaner.php">Escaner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="consultar.php">Ayuda</a>
+                    <a class="nav-link" href="consultar.php">Consultar </a>
                 </li>
             </ul>
         </div>
@@ -118,12 +118,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nombre = $_GET['Nombre'];
                 $qrValido = $_GET['qrValido'];
                 $cedula = $_GET['Cedula'];
-                // Your code for handling these variables goes here
+                $qr = "Escaneado";
+                if($qrValido == "1"){
+                    $qr = "Disponible";
+                }
             }
             echo "<tr>";
             echo "<td>" . $cedula . "</td>"; // Cedula
             echo "<td>" . $nombre . "</td>"; // Nombre
-            echo "<td>" . $qrValido . "</td>"; // Código válido
+            echo "<td>" . $qr . "</td>"; // Código válido
             echo "</tr>"
 
 
@@ -132,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
     </div>
 </div>
-</div>
+
 
 <!-- Scripts de Bootstrap y jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
