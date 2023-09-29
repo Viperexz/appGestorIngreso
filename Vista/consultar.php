@@ -127,9 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo "<td>" . $cedula. "</td>"; // Cedula
                         echo "<td>" . $nombre . "</td>"; // Nombre
                         echo "<td>" . $qrValido . "</td>"; // Código válido
-                        echo "</tr>";
+                        echo "</tr>"
 
-                }
+
+
                 ?>
 
             </table>
