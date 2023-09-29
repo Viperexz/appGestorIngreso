@@ -7,10 +7,10 @@ if (!isset($_SESSION['username'])) {
     exit; // Añade esta línea para evitar que el código se ejecute más allá de este punto
 }
 
-if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
-    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
-    echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
-}
+    if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
+        // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
+        echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
+    }
 
 if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error2') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a class="nav-link" href="escaner.php">Escaner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ayuda.php">Ayuda</a>
+                    <a class="nav-link" href="consultar.php">Ayuda</a>
                 </li>
             </ul>
         </div>
@@ -306,3 +306,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 </html>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

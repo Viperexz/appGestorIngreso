@@ -62,8 +62,8 @@ if (!isset($_SESSION['username'])) {
             <button type="button"  href="escaner.php" class="btn btn-primary">Escaner QR</button>
         </div>
         <div class="col-md-6">
-            <p> Podras encontrar una guia rapida de como usar la app.</p>
-            <button type="button"  href="ayuda.php" class="btn btn-primary">Ayuda</button>
+            <p> Aqui podras validar si las personas se registraron exitosamente.</p>
+            <button type="button"  href="consulta.php" class="btn btn-primary">Ayuda</button>
         </div>
     </div>
 
