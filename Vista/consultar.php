@@ -38,9 +38,10 @@ class clsConsultas
                 exit;
             } elseif ($qrValido == "0") {
                 header("Location: consultar.php?Nombre=$parNombre&qrValido=NO");
-            } else {
-                header("Location: consular.php?mensaje=error");
             }
+        }
+        else {
+            header("Location: consular.php?mensaje=error");
         }
     }
 }
