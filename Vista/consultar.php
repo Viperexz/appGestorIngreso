@@ -13,9 +13,6 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
 
 class clsConsultas
 {
-
-
-
     public function consultarSql($prmCedula)
     {
         $cedula = $this->conexion->real_escape_string($prmCedula);
@@ -33,7 +30,7 @@ class clsConsultas
             } elseif ($qrValido == "0") {
                 header("Location: consultar.php?Nombre=$parNombre&qrValido=NO");
             } else {
-                header("Location: escaner.php?mensaje=error");
+                header("Location: consular.php?mensaje=error");
             }
         }
     }
@@ -91,9 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="row">
         <div class="col-md-6">
-            <form id="miFormulario" action="" method="POST">
-                <input type="text" id="input-dato" name="input-dato">
-                <input type="submit" value="Confirmar Cedula.">
+            <form id="ConsultaCedula" action="" method="POST">
+                <input type="text" id="inCedula" name="inCedula">
+                <input type="submit" value="Consultar cedula">
             </form>
         </div>
     </div>
@@ -123,8 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </table>
         </div>
     </div>
-
-
 </div>
 
 <!-- Scripts de Bootstrap y jQuery -->
