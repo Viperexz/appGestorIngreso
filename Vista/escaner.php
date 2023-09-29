@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a class="nav-link" href="escaner.php">Escaner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="consultar.php">Ayuda</a>
+                    <a class="nav-link" href="consultar.php">Consultar</a>
                 </li>
             </ul>
         </div>
