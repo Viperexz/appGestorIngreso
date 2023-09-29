@@ -12,16 +12,14 @@ if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     echo '<div class="alert alert-danger">No se encontro su cedula. </div>';
 }
 
-if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error2') {
-    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
-    echo '<div class="alert alert-danger">Error al actualizar</div>';
-}
-
 if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error1') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
     echo '<div class="alert alert-danger">Codigo no valido </div>';
 }
-
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error2') {
+    // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
+    echo '<div class="alert alert-danger">Error al actualizar</div>';
+}
 
 if (isset($_GET['Nombre']) && $_GET['mensaje'] === 'UsuarioValidado') {
     $nombre = $_GET['Nombre'];
@@ -53,12 +51,11 @@ class clsVerificarQr
             $parNombre = $resultadoConsulta[0]["parnombre"];
             if ($qrValido == "1") {
                 $this->actualizarCodigo($cedula, $parNombre);
-                exit;
             } elseif ($qrValido == "0") {
                 header("Location: escaner.php?mensaje=error1");
-            } else {
-                header("Location: escaner.php?mensaje=error");
             }
+        }else {
+            header("Location: escaner.php?mensaje=error");
         }
     }
 
@@ -90,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra Superior</title>
+    <title>Escaner</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="../Recursos/css/mainpage.css">
