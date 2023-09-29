@@ -34,9 +34,9 @@ class clsConsultas
             $qrValido = $resultadoConsulta[0]["qrvalido"];
             $parNombre = $resultadoConsulta[0]["parnombre"];
             if ($qrValido == "1") {
-                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&qrValido=SI&Cedula=$prmCedula");
+                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&Cedula=$prmCedula&qrValido=SI");
             } elseif ($qrValido == "0") {
-                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&qrValido=NO&Cedula=$prmCedula");
+                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&Cedula=$prmCedula&qrValido=NO");
             }
         }
         else {
@@ -112,12 +112,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Codigo valido?</th>
                 </tr>
                 <?php
-                if (isset($_GET['mensaje']) && $_GET['mensaje'] ==="encontrado" && $_GET['Nombre'] &&$_GET['qrValido'] && $_GET['Cedula']) {
-                    $cedula = $_GET['Cedula'];
-                    $nombre = $_GET['Nombre'];
-                    $qrValido =$_GET['qrValido'];
-
-                        echo "<tr>";
+          if (
+    isset($_GET['Nombre']) &&
+    isset($_GET['qrValido']) &&
+    isset($_GET['Cedula']) &&
+    $_GET['mensaje'] === 'UsuarioValidado'
+) {
+    $nombre = $_GET['Nombre'];
+    $qrValido = $_GET['qrValido'];
+    $cedula = $_GET['Cedula'];
+    // Your code for handling these variables goes here
+}
+                    echo "<tr>";
                         echo "<td>" . $cedula. "</td>"; // Cedula
                         echo "<td>" . $nombre . "</td>"; // Nombre
                         echo "<td>" . $qrValido . "</td>"; // Código válido
