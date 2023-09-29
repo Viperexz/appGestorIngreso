@@ -34,11 +34,7 @@ class clsConsultas
             // Obtenemos el valor de qrValido desde el primer resultado
             $qrValido = $resultadoConsulta[0]["qrvalido"];
             $parNombre = $resultadoConsulta[0]["parnombre"];
-            if ($qrValido == "1") {
-                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&Cedula=$prmCedula&qrValido=SI");
-            } elseif ($qrValido == "0") {
-                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&Cedula=$prmCedula&qrValido=NO");
-            }
+            header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&Cedula=$prmCedula&qrValido=$qrValido");
         } else {
             header("Location: consultar.php?mensaje=error");
         }
