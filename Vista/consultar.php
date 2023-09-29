@@ -36,7 +36,7 @@ class clsConsultas
     }
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $qrResult = $_POST['input-dato'];
+    $qrResult = $_POST['inCedula'];
     $consultSql = new clsConsultas();
     $consultSql->consultarSql($qrResult);
 }
