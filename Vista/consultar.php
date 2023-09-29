@@ -35,7 +35,6 @@ class clsConsultas
             $parNombre = $resultadoConsulta[0]["parnombre"];
             if ($qrValido == "1") {
                 header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&qrValido=SI&Cedula=$prmCedula");
-                exit;
             } elseif ($qrValido == "0") {
                 header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&qrValido=NO&Cedula=$prmCedula");
             }
