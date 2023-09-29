@@ -37,7 +37,7 @@ class clsConsultas
                 header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&qrValido=SI&Cedula=$prmCedula");
                 exit;
             } elseif ($qrValido == "0") {
-                header("Location: consultar.php?Nombre=$parNombre&qrValido=NO");
+                header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&qrValido=NO&Cedula=$prmCedula");
             }
         }
         else {
@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <th>Codigo valido?</th>
                 </tr>
                 <?php
-                if (isset($_GET['mensaje']) && $_GET['mensaje'] ==="encontrado" && $_GET['Nombre'] &&$_GET['qrValido'] && $_GET['Nombre']) {
+                if (isset($_GET['mensaje']) && $_GET['mensaje'] ==="encontrado" && $_GET['Nombre'] &&$_GET['qrValido'] && $_GET['Cedula']) {
                     $cedula = $_GET['Cedula'];
                     $nombre = $_GET['Nombre'];
                     $qrValido =$_GET['qrValido'];
