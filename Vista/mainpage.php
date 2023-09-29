@@ -41,7 +41,7 @@ if (!isset($_SESSION['username'])) {
                     <a class="nav-link" href="escaner.php">Escaner</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ayuda</a>
+                    <a class="nav-link" href="consultar.php">Ayuda</a>
                 </li>
             </ul>
         </div>
@@ -63,7 +63,7 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div class="col-md-6">
             <p> Aqui podras validar si las personas se registraron exitosamente.</p>
-            <button type="button"  href="consulta.php" class="btn btn-primary">Ayuda</button>
+            <button type="button"  href="consultar.php" class="btn btn-primary">Ayuda</button>
         </div>
     </div>
 
