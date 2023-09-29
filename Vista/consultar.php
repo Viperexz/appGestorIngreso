@@ -1,10 +1,10 @@
 <?php
 /**session_start();
-if (!isset($_SESSION['username'])) {
-    // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
-    $mensaje = "Debe iniciar sesión para acceder a esta página.";
-    header("Location: login.php?mensaje=error");
-}**/
+ * if (!isset($_SESSION['username'])) {
+ * // Si el usuario no ha iniciado sesión, mostrar un mensaje de notificación
+ * $mensaje = "Debe iniciar sesión para acceder a esta página.";
+ * header("Location: login.php?mensaje=error");
+ * }**/
 
 if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'error') {
     // Muestra el mensaje de error aquí, por ejemplo, en un div con formato
@@ -22,6 +22,7 @@ class clsConsultas
         $this->manejoDatos = new \Controlador\clsManejoDatos();
         $this->conexion = $this->manejoDatos->getConexion();
     }
+
     public function consultarSql($prmCedula)
     {
         $cedula = $this->conexion->real_escape_string($prmCedula);
@@ -38,12 +39,12 @@ class clsConsultas
             } elseif ($qrValido == "0") {
                 header("Location consultar.php?mensaje=encontrado&Nombre=$parNombre&Cedula=$prmCedula&qrValido=NO");
             }
-        }
-        else {
+        } else {
             header("Location: consultar.php?mensaje=error");
         }
     }
 }
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $qrResult = $_POST['inCedula'];
     $consultSql = new clsConsultas();
@@ -104,38 +105,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
     <div class="row"
-        <div class="col-md-6">
-            <table border="1px">
-                <tr>
-                    <th>Cedula</th>
-                    <th>Nombre</th>
-                    <th>Codigo valido?</th>
-                </tr>
-                <?php
-          if (
-    isset($_GET['Nombre']) &&
-    isset($_GET['qrValido']) &&
-    isset($_GET['Cedula']) &&
-    $_GET['mensaje'] === 'UsuarioValidado'
-) {
-    $nombre = $_GET['Nombre'];
-    $qrValido = $_GET['qrValido'];
-    $cedula = $_GET['Cedula'];
-    // Your code for handling these variables goes here
-}
-                    echo "<tr>";
-                        echo "<td>" . $cedula. "</td>"; // Cedula
-                        echo "<td>" . $nombre . "</td>"; // Nombre
-                        echo "<td>" . $qrValido . "</td>"; // Código válido
-                        echo "</tr>"
+    <div class="col-md-6">
+        <table border="1px">
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Codigo valido?</th>
+            </tr>
+            <?php
+            if (
+                isset($_GET['Nombre']) &&
+                isset($_GET['qrValido']) &&
+                isset($_GET['Cedula']) &&
+                $_GET['mensaje'] === 'encontrado'
+            ) {
+                $nombre = $_GET['Nombre'];
+                $qrValido = $_GET['qrValido'];
+                $cedula = $_GET['Cedula'];
+                // Your code for handling these variables goes here
+            }
+            echo "<tr>";
+            echo "<td>" . $cedula . "</td>"; // Cedula
+            echo "<td>" . $nombre . "</td>"; // Nombre
+            echo "<td>" . $qrValido . "</td>"; // Código válido
+            echo "</tr>"
 
 
+            ?>
 
-                ?>
-
-            </table>
-        </div>
+        </table>
     </div>
+</div>
 </div>
 
 <!-- Scripts de Bootstrap y jQuery -->
